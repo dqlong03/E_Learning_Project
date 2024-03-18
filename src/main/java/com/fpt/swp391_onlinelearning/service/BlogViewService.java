@@ -6,10 +6,12 @@ package com.fpt.swp391_onlinelearning.service;
 
 import com.fpt.swp391_onlinelearning.convert.Converter;
 import com.fpt.swp391_onlinelearning.dal.idal.IBlogViewDAO;
+import com.fpt.swp391_onlinelearning.dto.BlogDTO;
 import com.fpt.swp391_onlinelearning.dto.BlogViewDTO;
 import com.fpt.swp391_onlinelearning.model.BlogView;
 import com.fpt.swp391_onlinelearning.service.iservice.IBlogViewService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,6 +68,32 @@ public class BlogViewService implements IBlogViewService{
             _iblogViewDAO.addPublicBlogView(b);
         }
         
+    }
+
+    @Override
+    public List<BlogDTO> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public BlogDTO get(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean update(BlogDTO t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean insert(BlogDTO t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean delete(int id) {
+    _iblogViewDAO.delete(id);
+    return true;
     }
     
 }

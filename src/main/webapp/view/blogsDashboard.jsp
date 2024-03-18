@@ -34,7 +34,7 @@
 
         <!-- PAGE TITLE HERE ============================================= -->
         <title>E-Learning : Education & Course </title>
-
+        <script src="https://cdn.tiny.cloud/1/fxl5y9orttfc7bs00l2bcgwyxaefx9f4s8dvb0qajm25dpu4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -440,27 +440,50 @@
                     </div>
                 </div>
             </div>
-
-
             <!--Code nội dung cm vào đây-->
             <div class="content">
-                <div class="leftPage">
-                    <form action="blogs" method="get">
+                <div class="leftPage" style="width: 40%">
+                    <c:if test="${requestScope.roleId == 2}">
+                        <form action="blogs?action=add" method="get">
+                            <input type="hidden" name="action" value="add" />
+                            <button type="submit" class="btn" style="width: 200px">Add new blog</button>
+                        </form>
+                    </c:if>
+                    <form action="blogs" method="get" style="margin: 12px 0 0 0">
                         <table class="listBlogTable">
                             <tbody>
+                                <c:if test="${requestScope.roleId == 4}">
+                                    <tr>
+                                        <td style="padding: 0 10px 10px 10px;"><label for="title">Title:</label></td>
+                                        <td style="padding: 0 10px 10px 10px;"><input type="text" id="title" name="title" placeholder="Title" value="${requestScope.title}"></td>
+                                        <td style="padding: 0 10px 10px 10px;"><label for="author">Author Name:</label></td>
+                                        <td style="padding: 0 10px 10px 10px;"><input type="text" id="author" name="author" placeholder="Author" value="${requestScope.author}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 10px;"><label for="date_from">Date From:</label></td>
+                                        <td style="padding: 10px 10px;"><input type="date" id="date_from" name="date_from" value="${requestScope.dateFrom}"></td>
+                                        <td style="padding: 10px 10px;"><label for="date_to">Date To:</label></td>
+                                        <td style="padding: 10px 10px;"><input type="date" id="date_to" name="date_to" value="${requestScope.dateTo}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 10px;"><label for="blog_category">Category:</label></td>
+                                        <td style="padding: 10px 10px;"><select id="blog_category" name="blog_category">
+                                                <option value="0" ${requestScope.blogCategory eq 0 ? "selected": ""}>All category </option>
+                                                <c:forEach var="b" items="${requestScope.blogCategoryList}">
+                                                    <option value="${b.blogCategoryId}" ${requestScope.blogCategory eq b.blogCategoryId ? "selected": ""}>${b.name}</option>
+                                                </c:forEach>
+                                            </select></td>
+                                        <td style="margin-left: 5%;padding: 10px 10px;">
+                                            <button type="submit" style="color:white; background-color: black;margin-bottom: 0;
+                                                    height: 30px; margin-left: 2%; padding: 0px 5px;" class="fa fa-search text-primary"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </c:if>
+                            <c:if test="${requestScope.roleId == 2}">
                                 <tr>
                                     <td style="padding: 0 10px 10px 10px;"><label for="title">Title:</label></td>
                                     <td style="padding: 0 10px 10px 10px;"><input type="text" id="title" name="title" placeholder="Title" value="${requestScope.title}"></td>
-                                    <td style="padding: 0 10px 10px 10px;"><label for="author">Author Name:</label></td>
-                                    <td style="padding: 0 10px 10px 10px;"><input type="text" id="author" name="author" placeholder="Author" value="${requestScope.author}"></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px 10px;"><label for="date_from">Date From:</label></td>
-                                    <td style="padding: 10px 10px;"><input type="date" id="date_from" name="date_from" value="${requestScope.dateFrom}"></td>
-                                    <td style="padding: 10px 10px;"><label for="date_to">Date To:</label></td>
-                                    <td style="padding: 10px 10px;"><input type="date" id="date_to" name="date_to" value="${requestScope.dateTo}"></td>
-                                </tr>
-                                <tr>
                                     <td style="padding: 10px 10px;"><label for="blog_category">Category:</label></td>
                                     <td style="padding: 10px 10px;"><select id="blog_category" name="blog_category">
                                             <option value="0" ${requestScope.blogCategory eq 0 ? "selected": ""}>All category </option>
@@ -468,12 +491,17 @@
                                                 <option value="${b.blogCategoryId}" ${requestScope.blogCategory eq b.blogCategoryId ? "selected": ""}>${b.name}</option>
                                             </c:forEach>
                                         </select></td>
-                                    <td style="margin-left: 5%;padding: 10px 10px;">
-                                        <button type="submit" style="color:white; background-color: black;margin-bottom: 0;
-                                                height: 30px; margin-left: 2%; padding: 0px 5px;" class="fa fa-search text-primary"></button>
-                                    </td>
                                 </tr>
-                            </tbody>
+                                <tr>
+                                    <td style="padding: 10px 10px;"><label for="date_from">Date From:</label></td>
+                                    <td style="padding: 10px 10px;"><input type="date" id="date_from" name="date_from" value="${requestScope.dateFrom}"></td>
+                                    <td style="padding: 10px 10px;"><label for="date_to">Date To:</label></td>
+                                    <td style="padding: 10px 10px;"><input type="date" id="date_to" name="date_to" value="${requestScope.dateTo}">
+                                        <button type="submit" style="color:white; background-color: black;margin-bottom: 0;
+                                                height: 30px; margin-left: 2%; padding: 0px 5px;margin: 0 0 0 120px" class="fa fa-search text-primary"></button></td>
+                                </tr>
+                                </tbody>
+                            </c:if>
                         </table>
                     </form>
                     <c:if test="${requestScope.blogs!= null and requestScope.blogs.size()>0}">
@@ -484,7 +512,9 @@
                                         <th style="padding: 5px 10px;">#</th>
                                         <th style="padding: 5px 10px;">Title</th>
                                         <th style="padding: 5px 10px;">Category</th>
-                                        <th style="padding: 5px 10px;">Author</th>
+                                            <c:if test="${requestScope.roleId == 4}">
+                                            <th style="padding: 5px 10px;">Author</th>
+                                            </c:if>
                                         <th style="padding: 5px 10px;">Created time</th>
                                         <th style="padding: 5px 10px;">Status</th>
                                     </tr>
@@ -495,27 +525,51 @@
                                             <td onclick="chooseBlog(${b.blogId}, '${requestScope.pageIndex}', '${requestScope.title}', '${requestScope.author}', '${requestScope.blogCategory}', '${requestScope.dateFrom}', '${requestScope.dateTo}')" style="padding: 10px 10px;">${i.count}</td>
                                             <td onclick="chooseBlog(${b.blogId}, '${requestScope.pageIndex}', '${requestScope.title}', '${requestScope.author}', '${requestScope.blogCategory}', '${requestScope.dateFrom}', '${requestScope.dateTo}')" style="padding: 10px 10px;">${b.title}</td>
                                             <td onclick="chooseBlog(${b.blogId}, '${requestScope.pageIndex}', '${requestScope.title}', '${requestScope.author}', '${requestScope.blogCategory}', '${requestScope.dateFrom}', '${requestScope.dateTo}')" style="padding: 10px 10px;">${b.category.name}</td>
-                                            <td onclick="chooseBlog(${b.blogId}, '${requestScope.pageIndex}', '${requestScope.title}', '${requestScope.author}', '${requestScope.blogCategory}', '${requestScope.dateFrom}', '${requestScope.dateTo}')" style="padding: 10px 10px;">${b.author.name}</td>
+                                            <c:if test="${requestScope.roleId == 4}">
+                                                <td onclick="chooseBlog(${b.blogId}, '${requestScope.pageIndex}', '${requestScope.title}', '${requestScope.author}', '${requestScope.blogCategory}', '${requestScope.dateFrom}', '${requestScope.dateTo}')" style="padding: 10px 10px;">${b.author.name}</td>
+                                            </c:if>
                                             <td onclick="chooseBlog(${b.blogId}, '${requestScope.pageIndex}', '${requestScope.title}', '${requestScope.author}', '${requestScope.blogCategory}', '${requestScope.dateFrom}', '${requestScope.dateTo}')" style="padding: 10px 10px;">${b.createdTime}</td>                                           
                                             <td style="padding: 10px 10px;">
                                                 <form action="blogs" method="post" id="form${b.blogId}">
                                                     <input type="hidden" name="title" value="${requestScope.title}">
-                                                    <input type="hidden" name="author" value="${requestScope.author}">
+                                                    <c:if test="${requestScope.roleId == 4}">
+                                                        <input type="hidden" name="author" value="${requestScope.author}">                                                        
+                                                    </c:if>
                                                     <input type="hidden" name="category" value="${requestScope.blogCategory}">
                                                     <input type="hidden" name="page" value="${requestScope.pageIndex}">
                                                     <input type="hidden" name="dateFrom" value="${requestScope.dateFrom}">
                                                     <input type="hidden" name="dateTo" value="${requestScope.dateTo}">
 
                                                     <input type="hidden" name="blogIdStatus" value="${b.blogId}">
-                                                    <input type="checkbox" name="blogStatus" value="check"
-                                                           id="switch${b.blogId}"
-                                                           class="checkbox" ${b.isActivated eq true?"checked" :""} 
-                                                           onchange="changeStatus('form${b.blogId}')" />
-                                                    <label style="margin-bottom: 0px;" for="switch${b.blogId}"
-                                                           class="toggle">
-                                                    </label>
+                                                    <c:if test="${requestScope.roleId == 4}">
+                                                        <input type="checkbox" name="blogStatus" value="check"
+                                                               id="switch${b.blogId}"
+                                                               class="checkbox" ${b.isActivated eq true?"checked" :""} 
+                                                               onchange="changeStatus('form${b.blogId}')" />
+                                                        <label style="margin-bottom: 0px;" for="switch${b.blogId}"
+                                                               class="toggle">
+                                                        </label>
+                                                    </c:if>
+                                                    <c:if test="${requestScope.roleId == 2}">
+                                                        <c:if test="${b.isActivated eq true}">
+                                                            <div style="text-align: center;color: green">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                                                </svg>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${b.isActivated eq false}">
+                                                            <div style="text-align: center;color: red">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                                                                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                                                                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                                                                <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+                                                                </svg>
+                                                            </div>
+                                                        </c:if>
+                                                    </c:if>
                                                 </form>
-
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -524,108 +578,228 @@
                         </div>
                         <div id="pagger"></div>
                     </c:if>
-                </div>
-                <div class="rightPage">
-                    <!-- blog start -->
-
-                    <div class="recent-news blog-lg">
-                        <div class="action-box blog-lg">
-                            <img src="${blog.img}" alt="">
+                    <c:if test="${empty requestScope.blogs}">
+                        <div class="img_not_found" style="margin: 0 0 0 160px">
+                            <img src="../assets/images/404.2 (1).png" alt=""/>
                         </div>
-                        <div class="info-bx">
-                            <ul class="media-post">
-                                <li><i class="fa fa-calendar"> ${blog.createdTime}</i></li>  
-                                <li><i class="fa fa-user"> ${blog.author.name}</i></li>  
-                            </ul>
-                            <h5 class="post-title">${blog.title}</h5>
-                            <span>${blog.content}</span>
-                            <div class="ttr-divider bg-gray" style="margin: 25px 0;"><i class="icon-dot c-square"></i></div>
-                            <div class="widget_tag_cloud">
-                                <h6>TAGS</h6>
-                                <div class="tagcloud"> 
-                                    ${blog.category.name}
+                        <h3 class="not_found" style="margin: 0 0 0 200px"> The system has no blog</h3>
+                    </c:if>
+                </div>
+                <div class="rightPage" style="width: 50%">
+                    <!-- blog start -->
+                    <c:if test="${not empty requestScope.blog}">
+                        <c:if test="${requestScope.roleId == 4}">
+                            <div class="recent-news blog-lg">
+                                <div class="action-box blog-lg">
+                                    <img src="${blog.img}" alt="">
+                                </div>
+                                <div class="info-bx">
+                                    <ul class="media-post">
+                                        <li><i class="fa fa-calendar"> ${blog.createdTime}</i></li>  
+                                        <li><i class="fa fa-user"> ${blog.author.name}</i></li>  
+                                    </ul>
+                                    <h5 class="post-title">${blog.title}</h5>
+                                    <span>${blog.content}</span>
+                                    <div class="ttr-divider bg-gray" style="margin: 25px 0;"><i class="icon-dot c-square"></i></div>
+                                    <div class="widget_tag_cloud">
+                                        <h6>TAGS</h6>
+                                        <div class="tagcloud"> 
+                                            ${blog.category.name}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:if>
+                        <c:if test="${requestScope.roleId == 2}">
+                            <form action="blogs?action=update" method="post" enctype="multipart/form-data" id="savechange">
+                                <input type="hidden" name="blogId1" value="${requestScope.blog.blogId}">
+                                <div class="infor-slider" style=" text-align: center;" >
+                                    <img style="width: 500px" src="${requestScope.blog.img}" alt="" id="imagePreview" onclick="triggerFileInput()"/>
+                                    <input type="file" name="imageFile" accept="image/*" style="display: none" id="uploadInput" onchange="uploadImage(event)">
+                                </div>
+                                    <div class="infor" style="margin: 10px 0 0 0">
+                                    <div class="form-group">
+                                        Title: <input type="text"  value="${requestScope.blog.title}" id="title1" name="title1" style="width: 100%" placeholder="Input your title" onclick="hideError()" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        Quick review: <input type="text" value="${requestScope.blog.quickReview}" id="quickReview" style="width: 100%;"name="quickReview"  onclick="hideError()"  class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        Blog category: <select style="margin: 15px 0 0 15px"name="blogCategory1">
+                                            <c:forEach  items="${requestScope.blogCategoryList}" var="bc">
+                                                <option value="${bc.blogCategoryId}" ${blog.category.blogCategoryId eq bc.blogCategoryId ? 'selected':''}> ${bc.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <textarea id="content" cols="30" rows="15" style="width: 100%;" onclick="hideError()" name="content">
+                                            ${requestScope.blog.content}
+                                        </textarea><br>
+                                    </div>
+                                    <div id="error" style="color:red;"></div>
+                                    <input type="hidden" value="${requestScope.blog.img}" name="data">
+                                    <button type="button" style="margin: 20px 0 0 660px;width: 20%;padding: 20px 0 20px 0" class="btn" onclick="sendForm()">Save</button>
+                                </div>
+                            </form>
+                            <form action="blogs?action=delete" method="post" onsubmit="return confirmSubmit()">
+                                <input type="hidden" name="blogId1" value="${requestScope.blog.blogId}">
+                                <button type="submit" style="margin: -85px 0 0 0;width: 20%;padding: 20px 0 20px 0" class="btn" >Delete</button>
+                            </form>
+                        </c:if>
                     </div>
-                </div>
+                </c:if>
             </div>
+        </div>
 
-            <script>
-                function goTo(url) {
-                    window.location = url;
+        <script>
+            function confirmSubmit() {
+                var confirmed = confirm("Are you sure you want to delete this blog?");
+                if (confirmed) {
+                    document.querySelector("form").submit();
+                    return true; // Nếu người dùng xác nhận, cho phép form được gửi đi
+                } else {
+                    return false; // Nếu người dùng hủy bỏ, chặn sự kiện mặc định của form
                 }
-                function toWhite(element) {
-                    var anchor = element.querySelector('a');
-                    if (anchor) {
-                        anchor.style.color = 'white';
-                    }
+            }
+            function sendForm() {
+                var error = '';
+                const title = document.getElementById('title1').value;
+                const quickReview = document.getElementById('quickReview').value;
+                if (title.length === 0) {
+                    error = 'Title is invalid. Please try again';
+                    document.getElementById('error').textContent = error;
+                    document.getElementById('error').style.display = 'block';
+                } else if (quickReview.length === 0) {
+                    error = 'Quick review is invalid. Please try again';
+                    document.getElementById('error').textContent = error;
+                    document.getElementById('error').style.display = 'block';
+                } else {
+                    var form = document.getElementById('savechange');
+                    form.submit();
                 }
-
-                function toBlack() {
-                    var firstChild = document.querySelectorAll('.list-item > a');
-                    firstChild.forEach(element => {
-                        element.style.color = 'black';
-                    });
+            }
+            function hideError() {
+                const error = document.getElementById('error');
+                error.style.display = 'none';
+                const errorExisted = document.getElementById('existedError');
+                if (errorExisted !== null) {
+                    error.style.display = 'none';
                 }
-            </script>
+            }
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'ai tinycomments mentions anchor autolink charmap preview codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [{
+                        value: 'First.Name',
+                        title: 'First Name'
+                    }, {
+                        value: 'Email',
+                        title: 'Email'
+                    }, ],
+                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+            });
+            // Hàm để mở input file khi nhấn vào ảnh
+            function triggerFileInput() {
+                document.getElementById('uploadInput').click();
+            }
 
-            <script>
-                function toggleDropdown() {
-                    var dropdown = document.getElementById("dropdownList");
+            // Hàm để xử lý sự kiện khi người dùng chọn file
+            function uploadImage(event) {
+                var input = event.target;
+                var preview = document.getElementById('imagePreview');
 
-                    if (dropdown.style.display === "block") {
-                        dropdown.style.display = "none";
-                        document.getElementById("myNav").style.width = "0%";
-                    } else {
-                        dropdown.style.display = "block";
-                        document.getElementById("myNav").style.width = "100%";
-                    }
+                // Kiểm tra xem người dùng đã chọn file chưa
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        // Hiển thị ảnh đã chọn
+                        preview.src = e.target.result;
+                    };
+
+                    // Đọc file ảnh
+                    reader.readAsDataURL(input.files[0]);
                 }
+            }
+        </script>
+        <script>
+            function goTo(url) {
+                window.location = url;
+            }
+            function toWhite(element) {
+                var anchor = element.querySelector('a');
+                if (anchor) {
+                    anchor.style.color = 'white';
+                }
+            }
 
-                function closeNav() {
-                    document.getElementById("myNav").style.width = "0%";
-                    var dropdown = document.getElementById("dropdownList");
+            function toBlack() {
+                var firstChild = document.querySelectorAll('.list-item > a');
+                firstChild.forEach(element => {
+                    element.style.color = 'black';
+                });
+            }
+        </script>
 
+        <script>
+            function toggleDropdown() {
+                var dropdown = document.getElementById("dropdownList");
+
+                if (dropdown.style.display === "block") {
                     dropdown.style.display = "none";
+                    document.getElementById("myNav").style.width = "0%";
+                } else {
+                    dropdown.style.display = "block";
+                    document.getElementById("myNav").style.width = "100%";
                 }
+            }
 
-                function chooseBlog(blogId, page, title, author, category, dateFrom, dateTo) {
-                    window.location = 'blogs?blogId=' + blogId + '&page=' + page + '&title=' + title + '&author=' + author + '&blog_category=' + category + '&date_from=' + dateFrom + '&date_to=' + dateTo;
+            function closeNav() {
+                document.getElementById("myNav").style.width = "0%";
+                var dropdown = document.getElementById("dropdownList");
+
+                dropdown.style.display = "none";
+            }
+
+            function chooseBlog(blogId, page, title, author, category, dateFrom, dateTo) {
+                window.location = 'blogs?blogId=' + blogId + '&page=' + page + '&title=' + title + '&author=' + author + '&blog_category=' + category + '&date_from=' + dateFrom + '&date_to=' + dateTo;
+            }
+
+            function changeStatus(blogId) {
+                document.getElementById(blogId).submit();
+            }
+
+        </script>
+
+        <script>
+            render('pagger', ${requestScope.pageIndex}, ${requestScope.totalPage}, 2, '${requestScope.title}', '${requestScope.author}',
+                    '${requestScope.blogCategory}', '${requestScope.dateFrom}', '${requestScope.dateTo}');
+            function render(id, pageIndex, totalPage, gap, title, author, blogCategory, dateFrom, dateTo) {
+                var container = document.getElementById(id);
+                console.log(container);
+                if (pageIndex - gap > 1) {
+                    container.innerHTML += '<a href="blogs?page=1' + '&title=' + title + '&author=' + author + '&blog_category=' + blogCategory + '&date_from=' + dateFrom + '&date_to=' + dateTo + '">First</a> ';
                 }
-
-                function changeStatus(blogId) {
-                    document.getElementById(blogId).submit();
-                }
-
-            </script>
-
-            <script>
-                render('pagger', ${requestScope.pageIndex}, ${requestScope.totalPage}, 2, '${requestScope.title}', '${requestScope.author}',
-                        '${requestScope.blogCategory}', '${requestScope.dateFrom}', '${requestScope.dateTo}');
-                function render(id, pageIndex, totalPage, gap, title, author, blogCategory, dateFrom, dateTo) {
-                    var container = document.getElementById(id);
-                    console.log(container);
-                    if (pageIndex - gap > 1) {
-                        container.innerHTML += '<a href="blogs?page=1' + '&title=' + title + '&author=' + author + '&blog_category=' + blogCategory + '&date_from=' + dateFrom + '&date_to=' + dateTo + '">First</a> ';
-                    }
-                    for (var i = pageIndex - gap; i < pageIndex; i++) {
-                        if (i > 0) {
-                            container.innerHTML += '<a href="blogs?page=' + i + '&title=' + title + '&author=' + author + '&blog_category=' + blogCategory + '&date_from=' + dateFrom + '&date_to=' + dateTo + '">' + i + '</a>';
-                        }
-                    }
-                    container.innerHTML += '<span>' + pageIndex + '</span>';
-                    for (var i = pageIndex + 1; i <= pageIndex + gap && i <= totalPage; i++) {
+                for (var i = pageIndex - gap; i < pageIndex; i++) {
+                    if (i > 0) {
                         container.innerHTML += '<a href="blogs?page=' + i + '&title=' + title + '&author=' + author + '&blog_category=' + blogCategory + '&date_from=' + dateFrom + '&date_to=' + dateTo + '">' + i + '</a>';
                     }
-                    if (pageIndex + gap < totalPage) {
-                        container.innerHTML += '<a href="blogs?page=' + totalPage + '&title=' + title + '&author=' + author + '&blog_category=' + blogCategory + '&date_from=' + dateFrom + '&date_to=' + dateTo + '">Last</a>';
-                    }
                 }
+                container.innerHTML += '<span>' + pageIndex + '</span>';
+                for (var i = pageIndex + 1; i <= pageIndex + gap && i <= totalPage; i++) {
+                    container.innerHTML += '<a href="blogs?page=' + i + '&title=' + title + '&author=' + author + '&blog_category=' + blogCategory + '&date_from=' + dateFrom + '&date_to=' + dateTo + '">' + i + '</a>';
+                }
+                if (pageIndex + gap < totalPage) {
+                    container.innerHTML += '<a href="blogs?page=' + totalPage + '&title=' + title + '&author=' + author + '&blog_category=' + blogCategory + '&date_from=' + dateFrom + '&date_to=' + dateTo + '">Last</a>';
+                }
+            }
 
 
-            </script>
-            <script src="../assets/js/sort.js">
-            </script>
+        </script>
+        <script src="../assets/js/sort.js">
+        </script>
     </body>
 </html>

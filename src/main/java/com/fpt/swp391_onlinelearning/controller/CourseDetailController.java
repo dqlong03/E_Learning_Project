@@ -14,7 +14,6 @@ import com.fpt.swp391_onlinelearning.dto.CourseDTO;
 import com.fpt.swp391_onlinelearning.dto.DurationDTO;
 import com.fpt.swp391_onlinelearning.dto.LanguageDTO;
 import com.fpt.swp391_onlinelearning.dto.LevelDTO;
-import com.fpt.swp391_onlinelearning.dto.UserDTO;
 import com.fpt.swp391_onlinelearning.service.CourseCategoryService;
 import com.fpt.swp391_onlinelearning.service.CourseService;
 import com.fpt.swp391_onlinelearning.service.DurationService;
@@ -37,13 +36,13 @@ import java.util.List;
  * @author quang
  */
 public class CourseDetailController extends HttpServlet {
-
+    
     private ICourseService iCourseService;
     private IService<CourseCategoryDTO> iCategoryService;
     private static ILevelService levelService;
     private static IDurationService durationService;
     private static ILanguageService languageService;
-
+    
     @Override
     public void init() throws ServletException {
         iCourseService = CourseService.getInstance(new CourseDAO(), new CourseDAO());
@@ -52,7 +51,7 @@ public class CourseDetailController extends HttpServlet {
         durationService = DurationService.getInstance(new DurationDAO(), new DurationDAO());
         languageService = LanguageService.getInstance(new LanguageDAO(), new LanguageDAO());
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String courseIdString = req.getParameter("id");
@@ -60,17 +59,10 @@ public class CourseDetailController extends HttpServlet {
         List<CourseCategoryDTO> categoryDTOs = iCategoryService.getAll();
         CourseDTO cdto = iCourseService.getCourseDetail(courseId);
         if (cdto != null) {
-            if (req.getSession().getAttribute("user") != null) {
-                UserDTO udto = (UserDTO) req.getSession().getAttribute("user");
-                List<CourseDTO> dtos = iCourseService.getTempCourseEnrollmemt(udto.getUserId());
-                if (!dtos.isEmpty()) {
-                    req.getSession().setAttribute("dtos", dtos);
-                } else {
-                    req.getSession().setAttribute("dtos", null);
-                }
-            }
             List<LevelDTO> level = levelService.getAllLevel();
+            
             List<DurationDTO> duration = durationService.getAllDuration();
+            
             List<LanguageDTO> language = languageService.getAllLanguage();
             req.setAttribute("level", level);
             req.setAttribute("language", language);
@@ -82,7 +74,7 @@ public class CourseDetailController extends HttpServlet {
         } else {
             resp.sendRedirect(req.getContextPath() + "/courselist");
         }
-
+        
     }
-
+    
 }

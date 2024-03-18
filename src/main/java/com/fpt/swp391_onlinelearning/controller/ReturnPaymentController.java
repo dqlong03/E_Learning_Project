@@ -11,7 +11,6 @@ import com.fpt.swp391_onlinelearning.dal.TransactionDAO;
 import com.fpt.swp391_onlinelearning.dal.UserDAO;
 import com.fpt.swp391_onlinelearning.dal.UserLessonDAO;
 import com.fpt.swp391_onlinelearning.dal.LessonDAO;
-import com.fpt.swp391_onlinelearning.dal.TempEnrollmentDAO;
 import com.fpt.swp391_onlinelearning.dto.AccountDTO;
 import com.fpt.swp391_onlinelearning.dto.CourseDTO;
 import com.fpt.swp391_onlinelearning.dto.FeatureDTO;
@@ -28,7 +27,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -44,7 +42,7 @@ public class ReturnPaymentController extends BaseRequiredAuthorizationController
     @Override
     public void init() throws ServletException {
         _iCourseService = CourseService.getInstance(new CourseDAO(), new CourseDAO());
-        _iPaymentService = PaymentService.getInstance(new UserDAO(), new CourseRegistrationDAO(), new TransactionDAO(), new UserLessonDAO(), new LessonDAO(), new TempEnrollmentDAO());
+        _iPaymentService = PaymentService.getInstance(new UserDAO(), new CourseRegistrationDAO(), new TransactionDAO(), new UserLessonDAO(), new LessonDAO());
         _iUserService = UserService.getInstace(new UserDAO(), new UserDAO());
     }
 
@@ -56,28 +54,17 @@ public class ReturnPaymentController extends BaseRequiredAuthorizationController
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, AccountDTO user, boolean isActivated, Set<FeatureDTO> features) throws ServletException, IOException {
         String transactionId = req.getParameter("transactionId");
-        long amount = Long.parseLong(req.getParameter("amount")) / 100;
+        long amount = Long.parseLong(req.getParameter("amount"))/100;
         Date createdTime = DatetimeUtil.toDateTime(req.getParameter("createdTime"));
         boolean status = req.getParameter("status").equals("00");
-        Object courseIdObject = req.getSession().getAttribute("courseId");
-        if (courseIdObject != null) {
-            int courseId = (int) courseIdObject;
-            req.getSession().setAttribute("courseId", null);
-            UserDTO userDto = _iUserService.getUserByAccountId(user.getAccId());
-            _iPaymentService.paymentReturn(transactionId, amount, createdTime, status, userDto, user.getAccId());
-            CourseDTO course = _iCourseService.get(courseId);
-            req.setAttribute("course", course);
-            req.setAttribute("user", userDto);
-            resp.sendRedirect("pay?courseId=" + courseId);
-        } else {
-            if (status) {
-                UserDTO userDto = _iUserService.getUserByAccountId(user.getAccId());
-                _iPaymentService.paymentReturn(transactionId, amount, createdTime, status, userDto, user.getAccId());
-                List<CourseDTO> dtos = (List<CourseDTO>) req.getSession().getAttribute("dtos");
-                userDto = _iUserService.getUserByAccountId(user.getAccId());
-                _iPaymentService.pay(userDto.getBalance() - amount, dtos, userDto);
-                resp.sendRedirect(req.getContextPath() + "/enroll");
-            }
-        }
+        int courseId = (int) req.getSession().getAttribute("courseId");
+        req.getSession().setAttribute("courseId", null);
+        UserDTO userDto = _iUserService.getUserByAccountId(user.getAccId());
+        _iPaymentService.paymentReturn(transactionId, amount, createdTime, status, userDto, user.getAccId());
+        CourseDTO course = _iCourseService.get(courseId);
+        req.setAttribute("course", course);
+        req.setAttribute("user", userDto);  
+        resp.sendRedirect("pay?courseId=" + courseId);
     }
+
 }

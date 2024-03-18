@@ -14,7 +14,6 @@ import com.fpt.swp391_onlinelearning.dto.CourseDTO;
 import com.fpt.swp391_onlinelearning.dto.DurationDTO;
 import com.fpt.swp391_onlinelearning.dto.LanguageDTO;
 import com.fpt.swp391_onlinelearning.dto.LevelDTO;
-import com.fpt.swp391_onlinelearning.dto.UserDTO;
 import com.fpt.swp391_onlinelearning.service.CourseCategoryService;
 import com.fpt.swp391_onlinelearning.service.CourseService;
 import com.fpt.swp391_onlinelearning.service.DurationService;
@@ -118,15 +117,6 @@ public class CourseController extends HttpServlet {
 
         List<LanguageDTO> language = languageService.getAllLanguage();
 
-        if (request.getSession().getAttribute("user") != null) {
-            UserDTO udto = (UserDTO) request.getSession().getAttribute("user");
-            List<CourseDTO> dtos = courseService.getTempCourseEnrollmemt(udto.getUserId());
-            if (!dtos.isEmpty()) {
-                request.getSession().setAttribute("dtos", dtos);
-            } else {
-                request.getSession().setAttribute("dtos", null);
-            }
-        }
         // Setting attributes to be used in JSP
         request.setAttribute("course", course);
         request.setAttribute("totalpage", totalpage);

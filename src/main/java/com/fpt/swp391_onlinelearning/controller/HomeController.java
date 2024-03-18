@@ -34,47 +34,44 @@ import java.util.List;
  *
  * @author tran Hoang Phuc
  */
-public class HomeController extends HttpServlet {
+
+public class HomeController extends HttpServlet{
 
     private ISliderService sliderService;
     private ICourseService courseService;
     private IBlogService blogservice;
     private ICourseRegistrationService iCourseRegistrationService;
-    private ICourseService iCourseService;
-
+    
     @Override
-    public void init() throws ServletException {
-        sliderService = SliderService.getInstance(new SliderDAO());
-        courseService = CourseService.getInstance(new CourseDAO(), new CourseDAO());
+    public void init() throws ServletException
+    {
+        sliderService= SliderService.getInstance(new SliderDAO());
+        courseService= CourseService.getInstance(new CourseDAO(), new CourseDAO());
         blogservice = BlogService.getInstance(new BlogDAO());
-        iCourseRegistrationService = CourseRegistrationService.getInstance(new CourseRegistrationDAO(), new CourseRegistrationDAO(), new LessonDAO(), new UserLessonDAO());
-        iCourseService = CourseService.getInstance(new CourseDAO(), new CourseDAO());
+        iCourseRegistrationService= CourseRegistrationService.getInstance(new CourseRegistrationDAO(), new CourseRegistrationDAO(), new LessonDAO(), new UserLessonDAO());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        List<SliderDTO> homeSliders = sliderService.getListOfSliderDTO();
-        List<CourseDTO> courseDTOList = courseService.getRecentlyCourses(5);
-        List<BlogDTO> blogDTOList = blogservice.getRecentlyBlog(5);
-        if (req.getSession().getAttribute("user") != null) {
-            UserDTO user = (UserDTO) req.getSession().getAttribute("user");
-            List<CourseRegistrationDTO> userRecentlyCourse = iCourseRegistrationService.getUserRecentlyCourse(4, user.getUserId());
+        
+        List<SliderDTO> homeSliders= sliderService.getListOfSliderDTO();
+        List<CourseDTO> courseDTOList= courseService.getRecentlyCourses(5);
+        List<BlogDTO> blogDTOList= blogservice.getRecentlyBlog(5);
+        if(req.getSession().getAttribute("user")!=null)
+        {
+            UserDTO user= (UserDTO) req.getSession().getAttribute("user");
+            List<CourseRegistrationDTO> userRecentlyCourse= iCourseRegistrationService.getUserRecentlyCourse(4, user.getUserId());
             req.setAttribute("userRecentlyCourse", userRecentlyCourse);
-            List<CourseDTO> dtos = iCourseService.getTempCourseEnrollmemt(user.getUserId());
-            if (!dtos.isEmpty()) {
-                req.getSession().setAttribute("dtos", dtos);
-            } else {
-                req.getSession().setAttribute("dtos", null);
-            }
         }
-
+        
         req.setAttribute("homeSliders", homeSliders);
         req.setAttribute("courseList", courseDTOList);
         req.setAttribute("blogList", blogDTOList);
-
-        req.getRequestDispatcher("view/home.jsp").forward(req, resp);
+        
+        
+        req.getRequestDispatcher("view/home.jsp").forward(req, resp); 
+        
 
     }
-
+    
 }

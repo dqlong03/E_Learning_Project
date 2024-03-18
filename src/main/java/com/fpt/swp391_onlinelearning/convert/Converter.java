@@ -1165,7 +1165,6 @@ public class Converter {
 
         return u;
     }
-
     public static CourseRegistrationDTO toDTO3(CourseRegistration cr) {
         CourseRegistrationDTO crdto= new CourseRegistrationDTO();
         CourseDTO cdto= new CourseDTO();
@@ -1183,19 +1182,33 @@ public class Converter {
                 
         return crdto;
     }
-    
-    public static CourseDTO toDTOTemp(Course c) {
-        CourseDTO dto = new CourseDTO();
-        dto.setCourseId(c.getCourseId());
-        dto.setPrice(c.getPrice());
-        return dto;
+    public static Blog toBlogDomain(BlogDTO blogDTO){
+        Blog blog=new Blog();
+        blog.setBlogId(blogDTO.getBlogId());
+        BlogCategory bc = new BlogCategory();
+        bc.setBlogCategoryId(blogDTO.getCategory().getBlogCategoryId());
+        blog.setCategory(bc);
+        blog.setContent(blogDTO.getContent());
+        blog.setImg(blogDTO.getImg());
+        blog.setQuickReview(blogDTO.getQuickReview());
+        blog.setTitle(blogDTO.getTitle());
+        return blog;
+    }
+    public static Blog toBlogDomain1(BlogDTO blogDTO){
+        Blog blog=new Blog();
+        BlogCategory bc = new BlogCategory();
+        bc.setBlogCategoryId(blogDTO.getCategory().getBlogCategoryId());
+        blog.setCategory(bc);
+        blog.setContent(blogDTO.getContent());
+        blog.setImg(blogDTO.getImg());
+        blog.setQuickReview(blogDTO.getQuickReview());
+        blog.setTitle(blogDTO.getTitle());
+        blog.setCreatedTime(blogDTO.getCreatedTime());
+        User user= new User();
+        user.setUserId(blogDTO.getAuthor().getUserId());
+        blog.setAuthor(user);
+        blog.setIsActivated(false);
+        return blog;
     }
     
-    public static List<CourseDTO> toDTOTemp(List<Course> courses) {
-        List<CourseDTO> dtos = new ArrayList<>();
-        for (Course course : courses) {
-            dtos.add(toDTOTemp(course));
-        }
-        return dtos;
-    }
 }

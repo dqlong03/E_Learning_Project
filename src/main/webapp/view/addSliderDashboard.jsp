@@ -581,7 +581,6 @@
                     var form = document.getElementById('addslider');
                     form.submit();
                 }
-
             }
 
             function hideError() {

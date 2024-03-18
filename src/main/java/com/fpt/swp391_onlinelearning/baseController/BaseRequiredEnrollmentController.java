@@ -32,7 +32,7 @@ public abstract class BaseRequiredEnrollmentController extends BaseRequiredAutho
 
     private boolean canJoin(int courseId, int userId) {
         _iCourseRegisterationService = CourseRegistrationService.getInstance(new CourseRegistrationDAO(), new CourseRegistrationDAO(), new LessonDAO(), new UserLessonDAO());
-        return !_iCourseRegisterationService.canJoin(courseId, userId);
+        return _iCourseRegisterationService.canJoin(courseId, userId);
     }
 
     @Override

@@ -420,6 +420,8 @@ public class CourseDAO implements IDAO<Course>, ICourseDAO {
         return null;
     }
 
+    
+
     @Override
     public List<Course> getUserRegisterdCourse(int userId, String searchValue, int categoryId, Date from, Date to, int pageIndex) {
         Connection connection = DBContext.getConnection();
@@ -982,31 +984,7 @@ public class CourseDAO implements IDAO<Course>, ICourseDAO {
         }
         return 0;
     }
-
-    @Override
-    public List<Course> getTempCourseEnrollmemt(int userId) {
-        List<Course> courses = new ArrayList<>();
-        Connection connection = DBContext.getConnection();
-        String sql = "SELECT te.`courseId`, c.price FROM swp391_onlinelearning.tempenrollment te \n"
-                + "JOIN swp391_onlinelearning.course c ON te.courseId = c.courseId WHERE te.userId = ?\n"
-                + "AND te.`courseId` NOT IN (\n"
-                + "	SELECT courseId FROM courseregistration WHERE userId = ?\n"
-                + ")";
-        try {
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, userId);
-            stm.setInt(2, userId);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Course c = new Course();
-                c.setCourseId(rs.getInt("courseId"));
-                c.setPrice(rs.getLong("price"));
-                courses.add(c);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CourseDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        return courses;
+    public static void main(String[] args) {
+        System.out.println(new CourseDAO().getCourseByAuthor(1, "", 0, 0, 0, 0, 18).size());
     }
-    
 }

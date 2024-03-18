@@ -11,7 +11,6 @@ import com.fpt.swp391_onlinelearning.dal.CourseDAO;
 import com.fpt.swp391_onlinelearning.dal.CourseRegistrationDAO;
 import com.fpt.swp391_onlinelearning.dal.DurationDAO;
 import com.fpt.swp391_onlinelearning.dal.LessonDAO;
-import com.fpt.swp391_onlinelearning.dal.TempEnrollmentDAO;
 import com.fpt.swp391_onlinelearning.dal.UserDAO;
 import com.fpt.swp391_onlinelearning.dal.UserLessonDAO;
 import com.fpt.swp391_onlinelearning.dto.AccountDTO;
@@ -25,12 +24,10 @@ import com.fpt.swp391_onlinelearning.service.AccountService;
 import com.fpt.swp391_onlinelearning.service.CourseCategoryService;
 import com.fpt.swp391_onlinelearning.service.CourseRegistrationService;
 import com.fpt.swp391_onlinelearning.service.DurationService;
-import com.fpt.swp391_onlinelearning.service.TempEnrollmentService;
 import com.fpt.swp391_onlinelearning.service.UserService;
 import com.fpt.swp391_onlinelearning.service.iservice.IAccountService;
 import com.fpt.swp391_onlinelearning.service.iservice.ICourseRegistrationService;
 import com.fpt.swp391_onlinelearning.service.iservice.IService;
-import com.fpt.swp391_onlinelearning.service.iservice.ITempEnrollService;
 import com.fpt.swp391_onlinelearning.service.iservice.IUserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,7 +48,6 @@ public class AddNewEnrrollmentsController extends BaseRequiredAuthorizationContr
     private IService<CourseCategoryDTO> _iCourseCategoryService;
     private IAccountService _iAccountService;
     private IUserService _iUserService;
-    private ITempEnrollService _iTempEnrollemtService;
 
     @Override
     public void init() throws ServletException {
@@ -61,7 +57,7 @@ public class AddNewEnrrollmentsController extends BaseRequiredAuthorizationContr
         _iCourseCategoryService = CourseCategoryService.getInstance(new CourseCategoryDAO());
         _iAccountService = AccountService.getInstance(new AccountDAO(), new AccountDAO());
         _iUserService = UserService.getInstace(new UserDAO(), new UserDAO());
-        _iTempEnrollemtService = TempEnrollmentService.getInstance(new TempEnrollmentDAO(), new CourseRegistrationDAO());
+
     }
 
     @Override
@@ -156,14 +152,12 @@ public class AddNewEnrrollmentsController extends BaseRequiredAuthorizationContr
             mesString = "Email does not exist";
         } else {
             UserDTO udto = _iUserService.getUserByAccountId(accountDTO.getAccId());
-            UserDTO staff = _iUserService.getUserByAccountId(user.getAccId());
             if (accountDTO.getIsActivated() == 2) {
                 mesString = "Account is blocked";
             } else {
-                if (_iTempEnrollemtService.addTempEnrollment(udto.getUserId(), courseIdStrings,staff.getUserId())) {
+                _iCourseRegisterationService.sendEmail(emailAdd, "Enrollment added successfully", _iCourseRegisterationService.getEnrollmentLink(udto.getUserId(), courseIdStrings));
+                if (_iCourseRegisterationService.addNewEnrollments(udto.getUserId(), courseIdStrings)) {
                     mesString = "New enrollments added successfully";
-                } else {
-                    mesString = "This course was registerd by this user";
                 }
             }
         }

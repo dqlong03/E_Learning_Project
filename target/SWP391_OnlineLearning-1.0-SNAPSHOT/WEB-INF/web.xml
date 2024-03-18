@@ -152,6 +152,10 @@
         <servlet-name>EditCourseDashboardController</servlet-name>
         <servlet-class>com.fpt.swp391_onlinelearning.controller.EditCourseDashboardController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReadFileController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.ReadFileController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CourseContentController</servlet-name>
         <url-pattern>/coursecontent</url-pattern>
@@ -303,6 +307,10 @@
     <servlet-mapping>
         <servlet-name>EditCourseDashboardController</servlet-name>
         <url-pattern>/dashboard/editcourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadFileController</servlet-name>
+        <url-pattern>/dashboard/readFiled</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

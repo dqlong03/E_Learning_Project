@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author phuc2
  */
-public interface IBlogService {
+public interface IBlogService extends IService<BlogDTO>{
 
     public List<BlogDTO> getRecentlyBlog(int numOfBlogs);
 
@@ -33,4 +33,7 @@ public interface IBlogService {
 
     public void changeStatus(String blogId, String status);
 
+    public List<BlogDTO> getSearchList(String title, int blogCategoryId, int pageIndex, int authorId, Date from, Date to);
+
+    public int countNumberOfPageSearch(String title, int blogCategoryId, int authorId, Date from, Date to);
 }

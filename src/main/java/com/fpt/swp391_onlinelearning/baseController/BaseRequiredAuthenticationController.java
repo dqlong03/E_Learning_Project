@@ -5,28 +5,15 @@
 package com.fpt.swp391_onlinelearning.baseController;
 
 import com.fpt.swp391_onlinelearning.dal.AccountDAO;
-import com.fpt.swp391_onlinelearning.dal.CourseDAO;
-import com.fpt.swp391_onlinelearning.dal.CourseRegistrationDAO;
-import com.fpt.swp391_onlinelearning.dal.TempEnrollmentDAO;
-import com.fpt.swp391_onlinelearning.dal.UserDAO;
 import com.fpt.swp391_onlinelearning.dto.AccountDTO;
-import com.fpt.swp391_onlinelearning.dto.CourseDTO;
-import com.fpt.swp391_onlinelearning.dto.UserDTO;
 import com.fpt.swp391_onlinelearning.service.AccountService;
-import com.fpt.swp391_onlinelearning.service.CourseService;
-import com.fpt.swp391_onlinelearning.service.TempEnrollmentService;
-import com.fpt.swp391_onlinelearning.service.UserService;
 import com.fpt.swp391_onlinelearning.service.iservice.IAccountService;
-import com.fpt.swp391_onlinelearning.service.iservice.ICourseService;
-import com.fpt.swp391_onlinelearning.service.iservice.ITempEnrollService;
-import com.fpt.swp391_onlinelearning.service.iservice.IUserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  *
@@ -36,23 +23,12 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
 
     private IAccountService _iAccountService;
     //private IService _iService;
-    private ICourseService _iCourseService;
-    private IUserService _iUserService;
+
 
     public boolean isRequiredAuthenticated(HttpServletRequest req) {
         _iAccountService = AccountService.getInstance(new AccountDAO(), new AccountDAO());
-        _iCourseService = CourseService.getInstance(new CourseDAO(), new CourseDAO());
-        _iUserService = UserService.getInstace(new UserDAO(), new UserDAO());
-
         AccountDTO account = (AccountDTO) req.getSession().getAttribute("session");
         if (account != null) {
-            UserDTO udto = _iUserService.getUserByAccountId(account.getAccId());
-            List<CourseDTO> dtos = _iCourseService.getTempCourseEnrollmemt(udto.getUserId());
-            if (!dtos.isEmpty()) {
-                req.getSession().setAttribute("dtos", dtos);
-            } else {
-                req.getSession().setAttribute("dtos", null);
-            }
             return true;
         } else {
             String email = null;
@@ -70,13 +46,6 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
                     }
                 }
                 if (email != null && password != null) {
-                    UserDTO udto = _iUserService.getUserByAccountId(account.getAccId());
-                    List<CourseDTO> dtos = _iCourseService.getTempCourseEnrollmemt(udto.getUserId());
-                    if (!dtos.isEmpty()) {
-                        req.getSession().setAttribute("dtos", dtos);
-                    } else {
-                        req.getSession().setAttribute("dtos", null);
-                    }
                     return _iAccountService.getLogin(email, password) != null;
                 }
             }

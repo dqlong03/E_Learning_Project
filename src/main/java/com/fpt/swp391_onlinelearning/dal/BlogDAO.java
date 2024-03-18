@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author phuc2
  */
-public class BlogDAO implements IBlogDAO, IDAO<Blog> {
+public class BlogDAO implements IBlogDAO {
 
     @Override
     public List<Blog> getRecentlyBlog(int numOfBlogs) {
@@ -80,17 +80,67 @@ public class BlogDAO implements IBlogDAO, IDAO<Blog> {
 
     @Override
     public boolean update(Blog t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Connection connection = DBContext.getConnection();
+        try {
+            String sql = "UPDATE blog b SET b.title=?, b.quickReview=?, b.content=?, b.img=?, b.blogCategoryId=?\n"
+                    + "WHERE b.blogId=?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, t.getTitle());
+            stm.setString(2, t.getQuickReview());
+            stm.setString(3, t.getContent());
+            stm.setInt(5, t.getCategory().getBlogCategoryId());
+            stm.setString(4, t.getImg());
+            stm.setInt(6, t.getBlogId());
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBContext.close(connection);
+        }
+        return false;
     }
 
     @Override
     public boolean insert(Blog t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Connection connection = DBContext.getConnection();
+        try {
+            String sql = "INSERT INTO blog (title, quickReview, content, `isActivated`, blogCategoryId, createdTime,authorId, img)\n"
+                    + "VALUES (?,?, ?, ?, ?,?,?,?);";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, t.getTitle());
+            stm.setString(2, t.getQuickReview());
+            stm.setString(3, t.getContent());
+            stm.setInt(5, t.getCategory().getBlogCategoryId());
+            stm.setBoolean(4, t.isIsActivated());
+            stm.setDate(6, t.getCreatedTime());
+            stm.setInt(7, t.getAuthor().getUserId());
+            stm.setString(8, t.getImg());
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBContext.close(connection);
+        }
+        return false;
     }
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Connection connection = DBContext.getConnection();
+        try {
+            String sql = "delete from blog WHERE blogId=?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBContext.close(connection);
+        }
+        return false;
     }
 
     @Override
@@ -102,8 +152,14 @@ public class BlogDAO implements IBlogDAO, IDAO<Blog> {
         }
         String sql = "SELECT ab.blogId, ab.title, ab.quickReview,ab.createdTime, ab.content, ab.blogCategoryId, ab.authorId, ab.img, ab.categoryName,ab.authorName FROM (\n"
                 + "SELECT b.blogId, b.title, b.quickReview,b.createdTime, b.content, b.blogCategoryId, b.authorId, b.img, bc.name AS categoryName, \n"
-                + "u.name AS authorName, ROW_NUMBER() OVER (ORDER BY blogId) AS RowNum\n"
-                + "FROM blog b \n"
+                + "u.name AS authorName, ROW_NUMBER() OVER (";
+        if (order == -1) {
+            sql += "ORDER BY b.createdTime ASC";
+        }
+        if (order == 1) {
+            sql += "ORDER BY b.createdTime DESC";
+        }
+        sql += ") AS RowNum FROM blog b \n"
                 + "JOIN blogcategory bc ON b.blogCategoryId = bc.blogCategoryId\n"
                 + "jOIN user u ON b.authorId = u.userId\n"
                 + "WHERE (1=1) and b.isActivated =true \n";
@@ -116,12 +172,6 @@ public class BlogDAO implements IBlogDAO, IDAO<Blog> {
         }
         sql += ") ab\n"
                 + "WHERE RowNum >=(?-1)*5 +1 AND rownum <= ?*5 ";
-        if (order == 1) {
-            sql += "ORDER BY ab.createdTime DESC";
-        } else {
-            sql += "ORDER BY ab.createdTime ASC";
-        }
-
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             if (paramBlogCategoryId == 1) {
@@ -468,6 +518,98 @@ public class BlogDAO implements IBlogDAO, IDAO<Blog> {
         }
     }
 
-    
+    @Override
+    public List<Blog> getSearchList(String title, int blogCategoryId, int pageIndex, int authorId, Date from, Date to) {
+        Connection connection = DBContext.getConnection();
+        List<Blog> blogs = new ArrayList<>();
+        String sql = "SELECT * FROM(\n"
+                + "SELECT ROW_NUMBER() OVER (ORDER BY b.createdTime DESC) AS rownum, b.blogId, b.title, b.createdTime, b.isActivated, u.userId,u.name AS author,\n"
+                + " bc.blogCategoryId,bc.name AS category FROM blog b\n"
+                + "JOIN blogcategory bc ON b.blogCategoryId = bc.blogCategoryId\n"
+                + "jOIN user u ON b.authorId = u.userId\n"
+                + "WHERE 1 = 1 AND b.createdTime >= ? AND b.createdTime <=? AND u.userId = ?\n";
+        if (title != null) {
+            sql += " AND b.title LIKE ? ";
+        }
+        if (blogCategoryId != 0) {
+            sql += " AND bc.blogCategoryId = ? ";
+        }
+        sql += ") t \n"
+                + "WHERE rownum >= (? - 1) * 8 + 1 AND rownum <= ? * 8";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setDate(1, from);
+            stm.setDate(2, to);
+            stm.setInt(3, authorId);
+            int parameterIndex = 4; // Starting index for additional parameters
+            if (title != null) {
+                stm.setString(parameterIndex++, "%" + title + "%");
+            }
+            if (blogCategoryId != 0) {
+                stm.setInt(parameterIndex++, blogCategoryId);
+            }
+            stm.setInt(parameterIndex++, pageIndex);
+            stm.setInt(parameterIndex++, pageIndex);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Blog b = new Blog();
+                b.setBlogId(rs.getInt("blogId"));
+                b.setCreatedTime(rs.getDate("createdTime"));
+                b.setTitle(rs.getString("title"));
+                BlogCategory bc = new BlogCategory();
+                bc.setBlogCategoryId(rs.getInt("blogCategoryId"));
+                bc.setName(rs.getString("category"));
+                b.setCategory(bc);
+                User author = new User();
+                author.setUserId(rs.getInt("userId"));
+                author.setName(rs.getString("author"));
+                b.setAuthor(author);
+                b.setIsActivated(rs.getBoolean("isActivated"));
+                blogs.add(b);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBContext.close(connection);
+        }
+        return blogs;
+    }
+
+    @Override
+    public int countRecordOfSearchList(String title, int blogCategoryId, int authorId, Date from, Date to) {
+        Connection connection = DBContext.getConnection();
+        String sql = "SELECT COUNT(*) AS num FROM blog b\n"
+                + "JOIN blogcategory bc ON b.blogCategoryId = bc.blogCategoryId\n"
+                + "jOIN user u ON b.authorId = u.userId\n"
+                + "WHERE 1 = 1 AND b.createdTime >= ? AND b.createdTime <= ? AND u.userId = ?\n";
+        if (title != null) {
+            sql += " AND b.title LIKE ? ";
+        }
+        if (blogCategoryId != 0) {
+            sql += " AND bc.blogCategoryId = ? ";
+        }
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setDate(1, from);
+            stm.setDate(2, to);
+            stm.setInt(3, authorId);
+            int parameterIndex = 4; // Starting index for additional parameters
+            if (title != null) {
+                stm.setString(parameterIndex++, "%" + title + "%");
+            }
+            if (blogCategoryId != 0) {
+                stm.setInt(parameterIndex++, blogCategoryId);
+            }
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("num");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBContext.close(connection);
+        }
+        return 0;
+    }
 
 }

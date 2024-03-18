@@ -316,7 +316,7 @@ public class CourseRegistrationDAO implements IDAO<CourseRegistration>, ICourseR
     }
     
     public static void main(String[] args) {
-        System.out.println(new CourseRegistrationDAO().canJoin(14, 2));
+        System.out.println(new CourseRegistrationDAO().countRegisterCourseByDay("2024-02-18"));
     }
 
     @Override
@@ -654,7 +654,7 @@ public class CourseRegistrationDAO implements IDAO<CourseRegistration>, ICourseR
             stm.setInt(2, userId);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                return rs.getInt("canJoin") == 0;
+                return rs.getInt("canJoin") > 0;
             }
         } catch (SQLException ex) {
             Logger.getLogger(CourseRegistrationDAO.class.getName()).log(Level.SEVERE, null, ex);

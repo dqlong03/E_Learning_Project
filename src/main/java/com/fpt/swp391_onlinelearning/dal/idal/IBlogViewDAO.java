@@ -4,6 +4,7 @@
  */
 package com.fpt.swp391_onlinelearning.dal.idal;
 
+import com.fpt.swp391_onlinelearning.model.Blog;
 import com.fpt.swp391_onlinelearning.model.BlogView;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import java.util.Map;
  *
  * @author phuc2
  */
-public interface IBlogViewDAO {
+public interface IBlogViewDAO extends IDAO<Blog>{
     public Map<BlogView , Integer> getBlogTrendView(int periodOfDays);
     public int getTotalBlogView(int periodOfDays);
     public void addNewBlogView(BlogView b);

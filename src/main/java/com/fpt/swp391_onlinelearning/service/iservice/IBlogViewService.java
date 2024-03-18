@@ -4,6 +4,7 @@
  */
 package com.fpt.swp391_onlinelearning.service.iservice;
 
+import com.fpt.swp391_onlinelearning.dto.BlogDTO;
 import com.fpt.swp391_onlinelearning.dto.BlogViewDTO;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import java.util.Map;
  *
  * @author phuc2
  */
-public interface IBlogViewService {
+public interface IBlogViewService extends IService<BlogDTO>{
     public Map<BlogViewDTO, Integer> getBlogViewTrend(int periodOfDays); 
     public int getRemainingBlogView(Map<BlogViewDTO, Integer> blogViewTrend,int periodOfDays);
     public void addNewBlogView(BlogViewDTO bdto);

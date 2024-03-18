@@ -217,9 +217,4 @@ public class CourseService implements IService<CourseDTO>, ICourseService {
         return _iCourseDAO.getTotalRecordByAuthor(dataSearch, levelId, categoryId, durationId, languageId, userId);
     }
 
-    @Override
-    public List<CourseDTO> getTempCourseEnrollmemt(int userId) {
-        return Converter.toDTOTemp(_iCourseDAO.getTempCourseEnrollmemt(userId));
-    }
-
 }
