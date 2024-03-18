@@ -15,6 +15,16 @@ public class TransactionDTO {
     private long amount;
     private Date createdTime;
     private boolean status;
+    private AccountDTO acc;
+
+    public AccountDTO getAcc() {
+        return acc;
+    }
+
+    public void setAcc(AccountDTO acc) {
+        this.acc = acc;
+    }
+    
 
     public String getTransactionId() {
         return transactionId;

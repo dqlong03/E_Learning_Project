@@ -4,8 +4,8 @@
  */
 package com.fpt.swp391_onlinelearning.dal;
 
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IDAO;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.ILanguageDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.ILanguageDAO;
 import com.fpt.swp391_onlinelearning.model.Language;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,7 +51,7 @@ public class LanguageDAO implements IDAO<Language>,ILanguageDAO{
         Connection connection = DBContext.getConnection();
         ArrayList<Language> language = new ArrayList<>();
         try {
-            String sql = "SELECT languageId,name FROM `language`";
+            String sql = "SELECT languageId,name FROM `language`  where isActivated=true";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()){       

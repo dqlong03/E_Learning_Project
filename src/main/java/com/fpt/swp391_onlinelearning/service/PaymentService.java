@@ -4,13 +4,18 @@
  */
 package com.fpt.swp391_onlinelearning.service;
 
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IDAO;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IUserDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.ILessonDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.ITempEnrollmentDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IUserDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IUserLessonDAO;
 import com.fpt.swp391_onlinelearning.dto.AccountDTO;
 import com.fpt.swp391_onlinelearning.dto.CourseDTO;
 import com.fpt.swp391_onlinelearning.dto.UserDTO;
+import com.fpt.swp391_onlinelearning.model.Account;
 import com.fpt.swp391_onlinelearning.model.Course;
-import com.fpt.swp391_onlinelearning.model.CourseRegisteration;
+import com.fpt.swp391_onlinelearning.model.CourseRegistration;
+import com.fpt.swp391_onlinelearning.model.Lesson;
 import com.fpt.swp391_onlinelearning.model.Transaction;
 import com.fpt.swp391_onlinelearning.model.User;
 import com.fpt.swp391_onlinelearning.service.iservice.IPaymentService;
@@ -42,38 +47,38 @@ public class PaymentService implements IPaymentService {
 
     private static PaymentService paymentService;
     private IUserDAO _iUserDAO;
-    private IDAO<CourseRegisteration> _iCourseRegisterationDAO;
+    private IDAO<CourseRegistration> _iCourseRegisterationDAO;
     private IDAO<Transaction> _iTransactionDAO;
+    private IUserLessonDAO _iUserLessonDAO;
+    private ILessonDAO _iLessonDAO;
+    private ITempEnrollmentDAO _iTempEnrollmentDAO;
 
-    public static PaymentService getInstance(IUserDAO _iUserDAO , IDAO<CourseRegisteration> _iCourseRegisterationDAO, IDAO<Transaction> _iTransactionDAO) {
+    public static PaymentService getInstance(IUserDAO _iUserDAO, IDAO<CourseRegistration> _iCourseRegisterationDAO, IDAO<Transaction> _iTransactionDAO, IUserLessonDAO _iUserLessonDAO, ILessonDAO _iLessonDAO, ITempEnrollmentDAO _iTempEnrollmentDAO) {
         if (paymentService == null) {
-            paymentService = new PaymentService(_iUserDAO, _iCourseRegisterationDAO, _iTransactionDAO);
+            paymentService = new PaymentService(_iUserDAO, _iCourseRegisterationDAO, _iTransactionDAO, _iUserLessonDAO, _iLessonDAO, _iTempEnrollmentDAO);
         }
         return paymentService;
     }
 
-    public PaymentService(IUserDAO _iUserDAO, IDAO<CourseRegisteration> _iCourseRegisterationDAO, IDAO<Transaction> _iTransactionDAO) {
+    public PaymentService(IUserDAO _iUserDAO, IDAO<CourseRegistration> _iCourseRegisterationDAO, IDAO<Transaction> _iTransactionDAO, IUserLessonDAO _iUserLessonDAO, ILessonDAO _iLessonDAO, ITempEnrollmentDAO _iTempEnrollmentDAO) {
         this._iUserDAO = _iUserDAO;
         this._iCourseRegisterationDAO = _iCourseRegisterationDAO;
         this._iTransactionDAO = _iTransactionDAO;
+        this._iUserLessonDAO = _iUserLessonDAO;
+        this._iLessonDAO = _iLessonDAO;
+        this._iTempEnrollmentDAO = _iTempEnrollmentDAO;
     }
 
     @Override
-    public String payForCourse(HttpServletRequest req, long price, AccountDTO dto, CourseDTO course) throws ServletException, IOException {
+    public String payForCourse(HttpServletRequest req, long price, AccountDTO dto, int total) throws ServletException, IOException {
         long amount = price * 100;
         User user = _iUserDAO.getUserByAccountId(dto.getAccId());
-        if (user.getBalance() >= course.getPrice()) {
-           user.setBalance(user.getBalance() - price);
-           // update lại user's price
-           _iUserDAO.updateBalance(user);
-           // insert bang courseRegisteration
-           Course c = new Course();
-           c.setCourseId(course.getCourseId());
-//           CourseRegisteration cr = new CourseRegisteration();
-//           cr.setCourse(c);
-//           cr.setUser(user);
-//           _iCourseRegisterationDAO.insert(cr);
-           return "true";
+        if (user.getBalance() >= total) {
+            user.setBalance(user.getBalance() - total);
+            // update lại user's price
+            _iUserDAO.updateBalance(user);
+            // insert bang courseRegisteration
+            return "true";
         } else {
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
@@ -157,28 +162,38 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public void paymentReturn(String transactionId, long amount, Date createdTime, boolean status, UserDTO user) {
+    public void paymentReturn(String transactionId, long amount, Date createdTime, boolean status, UserDTO user, int accId) {
         Transaction transaction = new Transaction(transactionId, amount, createdTime, status);
+        Account a = new Account();
+        a.setAccId(accId);
+        transaction.setAccount(a);
         _iTransactionDAO.insert(transaction);
-        User u = new User();
-        u.setUserId(user.getUserId());
-        u.setBalance(user.getBalance() + amount);
-        _iUserDAO.updateBalance(u);
+        if (status) {
+            User u = new User();
+            u.setUserId(user.getUserId());
+            u.setBalance(user.getBalance() + amount);
+            _iUserDAO.updateBalance(u);
+        }
     }
 
     @Override
-    public void pay(long amount, CourseDTO course, UserDTO user) {
+    public void pay(long amount, List<CourseDTO> courses, UserDTO user) {
         user.setBalance(amount);
-        Course c = new Course();
-        c.setCourseId(course.getCourseId());
         User u = new User();
         u.setUserId(user.getUserId());
         u.setBalance(user.getBalance());
         _iUserDAO.updateBalance(u);
-        CourseRegisteration courseRegisteration = new CourseRegisteration();
-        courseRegisteration.setCourse(c);
-        courseRegisteration.setUser(u);
-        _iCourseRegisterationDAO.insert(courseRegisteration);
+        for (CourseDTO course : courses) {
+            Course c = new Course();
+            c.setCourseId(course.getCourseId());
+            CourseRegistration courseRegisteration = new CourseRegistration();
+            courseRegisteration.setCourse(c);
+            courseRegisteration.setUser(u);
+            _iCourseRegisterationDAO.insert(courseRegisteration);
+            _iTempEnrollmentDAO.deleteEnrollment(user.getUserId(), course.getCourseId());
+            List<Lesson> lessons = _iLessonDAO.getLessonsByCourse(course.getCourseId());
+            _iUserLessonDAO.addUserLessons(user.getUserId(), lessons);
+        }
     }
 
 }

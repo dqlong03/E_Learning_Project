@@ -4,8 +4,8 @@
  */
 package com.fpt.swp391_onlinelearning.dal;
 
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IDAO;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.ILevelDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.ILevelDAO;
 import com.fpt.swp391_onlinelearning.model.Level;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,7 +52,7 @@ public class LevelDAO implements IDAO<Level>,ILevelDAO{
         Connection connection = DBContext.getConnection();
         ArrayList<Level> level = new ArrayList<>();
         try {
-            String sql = "SELECT levelId,name FROM `level`";
+            String sql = "SELECT levelId,name FROM `level` where isActivated=true";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()){       

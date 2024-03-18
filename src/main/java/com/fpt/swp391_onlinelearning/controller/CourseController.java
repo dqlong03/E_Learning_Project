@@ -14,21 +14,22 @@ import com.fpt.swp391_onlinelearning.dto.CourseDTO;
 import com.fpt.swp391_onlinelearning.dto.DurationDTO;
 import com.fpt.swp391_onlinelearning.dto.LanguageDTO;
 import com.fpt.swp391_onlinelearning.dto.LevelDTO;
+import com.fpt.swp391_onlinelearning.dto.UserDTO;
 import com.fpt.swp391_onlinelearning.service.CourseCategoryService;
 import com.fpt.swp391_onlinelearning.service.CourseService;
 import com.fpt.swp391_onlinelearning.service.DurationService;
 import com.fpt.swp391_onlinelearning.service.LanguageService;
 import com.fpt.swp391_onlinelearning.service.LevelService;
-import com.fpt.swp391_onlinelearning.service.iservice.ICourseCategoryService;
 import com.fpt.swp391_onlinelearning.service.iservice.ICourseService;
 import com.fpt.swp391_onlinelearning.service.iservice.IDurationService;
 import com.fpt.swp391_onlinelearning.service.iservice.ILanguageService;
 import com.fpt.swp391_onlinelearning.service.iservice.ILevelService;
-import java.io.IOException;
+import com.fpt.swp391_onlinelearning.service.iservice.IService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ import java.util.List;
 public class CourseController extends HttpServlet {
 
     private static ICourseService courseService;
-    private static ICourseCategoryService courseCategoryService;
+    private static IService<CourseCategoryDTO> courseCategoryService;
     private static ILevelService levelService;
     private static IDurationService durationService;
     private static ILanguageService languageService;
@@ -109,7 +110,7 @@ public class CourseController extends HttpServlet {
         
         List<CourseDTO> course = courseService.getAllCourse(pageindex, pagesize, sort, ccid, name, levelid, durationid, languageid);
         
-        List<CourseCategoryDTO> cate = courseCategoryService.getAllCategory();
+        List<CourseCategoryDTO> cate = courseCategoryService.getAll();
 
         List<LevelDTO> level = levelService.getAllLevel();
 
@@ -117,6 +118,15 @@ public class CourseController extends HttpServlet {
 
         List<LanguageDTO> language = languageService.getAllLanguage();
 
+        if (request.getSession().getAttribute("user") != null) {
+            UserDTO udto = (UserDTO) request.getSession().getAttribute("user");
+            List<CourseDTO> dtos = courseService.getTempCourseEnrollmemt(udto.getUserId());
+            if (!dtos.isEmpty()) {
+                request.getSession().setAttribute("dtos", dtos);
+            } else {
+                request.getSession().setAttribute("dtos", null);
+            }
+        }
         // Setting attributes to be used in JSP
         request.setAttribute("course", course);
         request.setAttribute("totalpage", totalpage);

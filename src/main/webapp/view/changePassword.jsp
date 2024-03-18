@@ -72,7 +72,7 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <li><a href="#">Home</a></li>
+                            <li><a href="home">Home</a></li>
                             <li>Profile</li>
                         </ul>
                     </div>
@@ -102,17 +102,13 @@
                                                     <a class="nav-link" href="editprofile"><i class="ti-pencil-alt"></i>Edit Profile</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#courses"><i class="ti-book"></i>Courses</a>
+                                                    <a class="nav-link"  href="enroll"><i class="ti-book"></i>Courses</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#quiz-results"><i class="ti-bookmark-alt"></i>Quiz Results </a>
-                                                </li>
-
                                                 <li class="nav-item">
                                                     <a class="nav-link active" data-toggle="tab" href="changepassword"><i class="ti-lock"></i>Change Password</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#transaction-history"><i class="ti-money"></i>Transaction history</a>
+                                                    <a class="nav-link" href="transaction"><i class="ti-money"></i>Transaction history</a>
                                                 </li>
                                             </ul>
                                         </div>

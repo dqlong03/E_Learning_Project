@@ -5,16 +5,16 @@
 package com.fpt.swp391_onlinelearning.service;
 
 import com.fpt.swp391_onlinelearning.convert.Converter;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IAccountDAO;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IAccountDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IDAO;
 import com.fpt.swp391_onlinelearning.dto.AccountDTO;
 import com.fpt.swp391_onlinelearning.model.Account;
 import com.fpt.swp391_onlinelearning.service.iservice.IAccountService;
 import com.fpt.swp391_onlinelearning.service.iservice.IService;
 import com.fpt.swp391_onlinelearning.util.CookieUtils;
 import com.fpt.swp391_onlinelearning.util.EmailUtil;
-import com.fpt.swp391_onlinelearning.util.Sha1Util;
 import com.fpt.swp391_onlinelearning.util.GenerateUtil;
+import com.fpt.swp391_onlinelearning.util.Sha1Util;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
@@ -189,6 +189,25 @@ public class AccountService implements IService<AccountDTO>, IAccountService {
         accountDAO.updatePassword(a.getAccId(), newPassword);
         
     }
+     @Override
+    public void updateAccountById(AccountDTO a, int id) {
+        Account ac = Converter.toDomain1(a);
+        accountDAO.updateAccountById(ac, id);
+    }
 
+    @Override
+    public boolean insertByAdmin(AccountDTO dto) {
+        Account acc = Converter.toDomain2(dto);
+        acc.setOtp(GenerateUtil.generateOTP());
+        return accountDAO.insertByAdmin(acc);
+        
+    }
+
+    @Override
+    public boolean sendPasswordtoEmail(String email, String pass) {
+        EmailUtil emailUtil = EmailUtil.getMailUtils();
+        String emailContent = "Your password is: " + pass;
+        return emailUtil.sendMail(email, "Your Password", emailContent);
+    }
     
 }

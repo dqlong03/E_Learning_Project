@@ -9,8 +9,36 @@
         <servlet-class>com.fpt.swp391_onlinelearning.controller.SetPasswordController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CourseContentController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.CourseContentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseDetailDashboardController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.CourseDetailDashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseContentDashboardController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.CourseContentDashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LessonStudyController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.LessonStudyController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Register</servlet-name>
         <servlet-class>com.fpt.swp391_onlinelearning.controller.RegisterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SliderController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.SliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.PostController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostDetailController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.PostDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ForgotPassword</servlet-name>
@@ -49,6 +77,10 @@
         <servlet-class>com.fpt.swp391_onlinelearning.controller.BlogListController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>BlogsDashboard</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.BlogsDashboardController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>BlogDetailController</servlet-name>
         <servlet-class>com.fpt.swp391_onlinelearning.controller.BlogDetailController</servlet-class>
     </servlet>
@@ -60,6 +92,74 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.fpt.swp391_onlinelearning.controller.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TransactionHistoryController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.TransactionHistoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisteredCourseController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.RegisteredCourseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseDashboardController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.CourseDashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewEnrollment</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.AddNewEnrrollmentsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListEnrollments</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.EnrollmentsDashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EnrollmentDetail</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.EnrollmentsDetailDashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.DashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserRegistrationStatisticsController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.UserRegistrationStatisticsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseRegistrationStatsController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.CourseRegistrationStatsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RevenusStatController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.RevenusStatController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserListController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.UserListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserDetailController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.UserDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingListController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.SettingListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardNavigatorController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.DashboardNavigatorController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditCourseDashboardController</servlet-name>
+        <servlet-class>com.fpt.swp391_onlinelearning.controller.EditCourseDashboardController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CourseContentController</servlet-name>
+        <url-pattern>/coursecontent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LessonStudyController</servlet-name>
+        <url-pattern>/lesson</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -119,6 +219,90 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TransactionHistoryController</servlet-name>
+        <url-pattern>/transaction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisteredCourseController</servlet-name>
+        <url-pattern>/enroll</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDetailController</servlet-name>
+        <url-pattern>/postdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostController</servlet-name>
+        <url-pattern>/dashboard/post</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SliderController</servlet-name>
+        <url-pattern>/dashboard/slider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseDashboardController</servlet-name>
+        <url-pattern>/dashboard/course</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewEnrollment</servlet-name>
+        <url-pattern>/dashboard/addenrollments</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListEnrollments</servlet-name>
+        <url-pattern>/dashboard/enrollmentlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnrollmentDetail</servlet-name>
+        <url-pattern>/dashboard/enrollmentdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/dashboard/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserRegistrationStatisticsController</servlet-name>
+        <url-pattern>/dashboard/userregisterStat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseRegistrationStatsController</servlet-name>
+        <url-pattern>/dashboard/courseregistrationStats</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RevenusStatController</servlet-name>
+        <url-pattern>/dashboard/revenusStats</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserListController</servlet-name>
+        <url-pattern>/dashboard/userList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDetailController</servlet-name>
+        <url-pattern>/dashboard/userDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingListController</servlet-name>
+        <url-pattern>/dashboard/settingList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseDetailDashboardController</servlet-name>
+        <url-pattern>/dashboard/coursedetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseContentDashboardController</servlet-name>
+        <url-pattern>/dashboard/coursecontent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogsDashboard</servlet-name>
+        <url-pattern>/dashboard/blogs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardNavigatorController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCourseDashboardController</servlet-name>
+        <url-pattern>/dashboard/editcourse</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

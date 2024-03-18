@@ -11,7 +11,10 @@ import java.util.Date;
  * @author tran Hoang Phuc
  */
 public class Transaction {
+
     private String transactionId;
+    private Account account;
+
     private long amount;
     private Date createdTime;
     private boolean status;
@@ -23,9 +26,16 @@ public class Transaction {
         this.status = status;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     public Transaction() {
     }
-    
 
     public String getTransactionId() {
         return transactionId;
@@ -58,5 +68,5 @@ public class Transaction {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
 }

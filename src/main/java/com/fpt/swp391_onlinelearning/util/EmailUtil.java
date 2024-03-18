@@ -34,8 +34,17 @@ public class EmailUtil {
         final int[] i = {0};
         thread = new Thread(() -> {
             for (i[0] = 0; i[0] < lstMailTo.size(); i[0]++) {
-                System.out.println("send mail: " + lstMailTo.get(i[0]));
                 sendMail(lstMailTo.get(i[0]), titleMail, body);
+            }
+        });
+        thread.start();
+    }
+
+    public void sendMailAll(String mailTo, String titleMail, List<String> bodies) throws MessagingException {
+        final int[] i = {0};
+        thread = new Thread(() -> {
+            for (i[0] = 0; i[0] < bodies.size(); i[0]++) {
+                sendMail(mailTo, titleMail, bodies.get(i[0]));
             }
         });
         thread.start();

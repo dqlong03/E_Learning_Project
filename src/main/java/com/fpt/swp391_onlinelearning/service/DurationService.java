@@ -5,8 +5,8 @@
 package com.fpt.swp391_onlinelearning.service;
 
 import com.fpt.swp391_onlinelearning.convert.Converter;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IDAO;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IDurationDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IDurationDAO;
 import com.fpt.swp391_onlinelearning.dto.DurationDTO;
 import com.fpt.swp391_onlinelearning.model.Duration;
 import com.fpt.swp391_onlinelearning.service.iservice.IDurationService;
@@ -17,8 +17,9 @@ import java.util.List;
  *
  * @author Admin
  */
-public class DurationService implements IService<DurationDTO>, IDurationService{
-        private IDAO<Duration> _iDao;
+public class DurationService implements IService<DurationDTO>, IDurationService {
+
+    private IDAO<Duration> _iDao;
     private IDurationDAO _iDurationDAO;
     private static DurationService durationService;
 
@@ -33,9 +34,11 @@ public class DurationService implements IService<DurationDTO>, IDurationService{
         }
         return durationService;
     }
+
     @Override
     public List<DurationDTO> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Duration> duration = _iDao.getAll();
+        return Converter.toDTO1(duration);
     }
 
     @Override
@@ -63,5 +66,5 @@ public class DurationService implements IService<DurationDTO>, IDurationService{
         List<Duration> duration = _iDurationDAO.getAllDuration();
         return Converter.toDTO1(duration);
     }
-    
+
 }

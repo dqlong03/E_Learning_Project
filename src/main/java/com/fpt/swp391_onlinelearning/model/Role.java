@@ -15,7 +15,15 @@ public class Role {
     private int roleId;
     private String name;
     private Set<Feature> features;
+    private SettingType type;
 
+    public SettingType getType() {
+        return type;
+    }
+
+    public void setType(SettingType type) {
+        this.type = type;
+    }
     public Set<Feature> getFeatures() {
         return features;
     }

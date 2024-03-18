@@ -34,7 +34,7 @@ public class SetPasswordController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AccountDTO acc = (AccountDTO) req.getSession().getAttribute("session");
         if (acc != null) {
-            resp.sendRedirect("view/home.jsp");
+            resp.sendRedirect("view/home");
         } else {
             int id = Integer.parseInt(req.getParameter("id"));
             String otp = req.getParameter("otp");

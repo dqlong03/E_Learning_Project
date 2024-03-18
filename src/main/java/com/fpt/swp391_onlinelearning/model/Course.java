@@ -22,7 +22,15 @@ public class Course {
     private String description;
     private String img;
     private Date createdTime;
+    private boolean isActivated;
 
+    public boolean isIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
     public Date getCreatedTime() {
         return createdTime;
     }

@@ -4,8 +4,8 @@
  */
 package com.fpt.swp391_onlinelearning.dal;
 
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IAccountDAO;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IAccountDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IDAO;
 import com.fpt.swp391_onlinelearning.model.Account;
 import com.fpt.swp391_onlinelearning.model.Role;
 import java.sql.Connection;
@@ -42,8 +42,9 @@ public class AccountDAO implements IDAO<Account>, IAccountDAO {
                 acc.setPass(rs.getString("pass"));
                 acc.setOtp(rs.getString("otp"));
                 acc.setIsActivated(rs.getInt("isActivated"));
+                acc.setRegisteredTime(rs.getDate("registeredTime"));
                 acc.setCreatedTime(rs.getTimestamp("createdTime"));
-                Role r= new Role();
+                Role r = new Role();
                 r.setRoleId(rs.getInt("roleId"));
                 acc.setRole(r);
                 return acc;
@@ -55,9 +56,7 @@ public class AccountDAO implements IDAO<Account>, IAccountDAO {
         }
         return null;
     }
-    public static void main(String[] args) {
-        System.out.println(new AccountDAO().get(1).getPass());
-    }
+
     @Override
     public boolean update(Account t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -66,7 +65,7 @@ public class AccountDAO implements IDAO<Account>, IAccountDAO {
     @Override
     public boolean insert(Account acc) {
         Connection connection = DBContext.getConnection();
-        String sql = "INSERT INTO `swp391_onlinelearning`.`account` (`email`, `pass`, `otp`, `createdTime`,`isActivated`, `roleId`) VALUES (?,?,?,NOW(), ?, 1);";
+        String sql = "INSERT INTO `swp391_onlinelearning`.`account` (`email`, `pass`, `otp`, `createdTime`,`isActivated`, `roleId`, `registeredTime`) VALUES (?,?,?,NOW(), ?, 1,NOW());";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, acc.getEmail());
@@ -91,8 +90,8 @@ public class AccountDAO implements IDAO<Account>, IAccountDAO {
     @Override
     public Account getLogin(String email, String pass) {
         Connection connection = DBContext.getConnection();
-        String sql = "SELECT `accId`, `email`, `isActivated`, `createdTime`, "
-                + "a.`roleId`, r.`name` FROM `swp391_onlinelearning`.`account` a JOIN `role` r ON a.`roleId` = r.`roleId` "
+        String sql = "SELECT `accId`, `email`, a.`isActivated`, `createdTime`, `registeredTime`, a.`roleId`, r.`name` \n"
+                + "FROM `swp391_onlinelearning`.`account` a  JOIN `swp391_onlinelearning`.`role` r ON a.`roleId` = r.`roleId`"
                 + "WHERE `email` = ? AND `pass` = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -105,6 +104,7 @@ public class AccountDAO implements IDAO<Account>, IAccountDAO {
                 account.setEmail(rs.getString("email"));
                 account.setIsActivated(rs.getInt("isActivated"));
                 account.setCreatedTime(rs.getTimestamp("createdTime"));
+                account.setRegisteredTime(rs.getDate("registeredTime"));
                 Role role = new Role();
                 role.setRoleId(rs.getInt("roleId"));
                 role.setName(rs.getString("name"));
@@ -196,4 +196,44 @@ public class AccountDAO implements IDAO<Account>, IAccountDAO {
         }
     }
 
+      @Override
+    public void updateAccountById(Account a, int id) {
+        Connection connection = DBContext.getConnection();
+        try {
+            String sql = "    UPDATE account AS a \n"
+                    + "    SET a.isActivated=?,a.roleId=?\n"
+                    + "                    WHERE a.accId=?    ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, a.getIsActivated());
+            stm.setInt(2, a.getRole().getRoleId());
+            stm.setInt(3, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBContext.close(connection);
+        }
+    }
+
+    @Override
+public boolean insertByAdmin(Account acc) {
+    Connection connection = DBContext.getConnection();
+    String sql = "INSERT INTO `swp391_onlinelearning`.`account` (`email`, `createdTime`, `isActivated`, `roleId`,`otp`) VALUES (?, NOW(), ?, ?,?);";
+    try {
+        PreparedStatement stm = connection.prepareStatement(sql);
+        stm.setString(1, acc.getEmail());
+        
+        stm.setInt(2, 0); 
+        stm.setInt(3, acc.getRole().getRoleId());
+        stm.setString(4,acc.getOtp());
+        stm.executeUpdate();
+        return true;
+    } catch (SQLException ex) {
+        Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        return false;
+    } finally {
+        DBContext.close(connection);
+    }
+}
+    
 }

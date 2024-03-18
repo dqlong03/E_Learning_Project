@@ -23,23 +23,24 @@ public abstract class BaseRequiredAuthorizationController extends BaseRequiredVe
 
     private IFeatureService _iFeatureService;
 
-
     public boolean isAuthorized(AccountDTO account, String url) {
         _iFeatureService = FeatureService.getInstance(new FeatureDAO());
-           System.out.println(_iFeatureService != null);
         Set<FeatureDTO> featureDtos = _iFeatureService.getFeatureByRole(account, url);
         account.getRole().setFeatures(featureDtos);
         return !featureDtos.isEmpty();
-        //   return true;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response, AccountDTO user, boolean isActivated) throws ServletException, IOException {
-        System.out.println(request.getServletPath());
         if (isAuthorized(user, request.getServletPath())) {
             doGet(request, response, user, isActivated, user.getRole().getFeatures());
         } else {
-            response.sendRedirect(request.getContextPath() + "/home");
+            String path = request.getServletPath();
+            if (path.contains("dashboard/")) {
+                response.sendRedirect(request.getContextPath() + "/dashboard");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
         }
     }
 
@@ -48,7 +49,12 @@ public abstract class BaseRequiredAuthorizationController extends BaseRequiredVe
         if (isAuthorized(user, request.getServletPath())) {
             doPost(request, response, user, isActivated, user.getRole().getFeatures());
         } else {
-            response.sendRedirect(request.getContextPath() + "/home");
+            String path = request.getServletPath();
+            if (path.contains("dashboard/")) {
+                response.sendRedirect(request.getContextPath() + "/dashboard");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
         }
     }
 

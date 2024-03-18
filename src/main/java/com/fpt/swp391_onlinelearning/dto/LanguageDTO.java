@@ -11,7 +11,15 @@ package com.fpt.swp391_onlinelearning.dto;
 public class LanguageDTO {
      private int languageId;
     private String name;
+    private boolean isActivated;
 
+    public boolean isIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
     public int getLanguageId() {
         return languageId;
     }

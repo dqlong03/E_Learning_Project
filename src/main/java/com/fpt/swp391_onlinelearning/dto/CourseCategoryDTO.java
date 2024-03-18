@@ -12,7 +12,15 @@ public class CourseCategoryDTO {
 
     private int courseCategoryId;
     private String name;
+    private boolean isActivated;
 
+    public boolean isIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
     public int getCourseCategoryId() {
         return courseCategoryId;
     }

@@ -102,6 +102,16 @@
                 height: 200px; /* Thay th? giá tr? này b?ng kích th??c mong mu?n */
                 object-fit: cover;
             }
+
+            .col-md-12 heading-bx left{
+                position: relative;
+            }
+            #enroll-btn{
+                position: absolute;
+                right: 1px;
+                top: 1px;
+                padding: 10px;
+            }
         </style>
     </head>
     <body id="bg">
@@ -152,132 +162,133 @@
                                              data-bgparallax="10" 
                                              class="rev-slidebg" 
                                              data-no-retina />
+                                        <a href="postdetail?postId=${h.post.postId}">
+                                            <!-- LAYER NR. 1 -->
+                                            <div class="tp-caption tp-shape tp-shapewrapper " 
+                                                 id="slide-${i}00-layer-1" 
+                                                 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                 data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
+                                                 data-width="full"
+                                                 data-height="full"
+                                                 data-whitespace="nowrap"
+                                                 data-type="shape" 
+                                                 data-basealign="slide" 
+                                                 data-responsive_offset="off" 
+                                                 data-responsive="off"
+                                                 data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1,"to":"opacity:0;","ease":"Power4.easeOut"}]'
+                                                 data-textAlign="['left','left','left','left']"
+                                                 data-paddingtop="[0,0,0,0]"
+                                                 data-paddingright="[0,0,0,0]"
+                                                 data-paddingbottom="[0,0,0,0]"
+                                                 data-paddingleft="[0,0,0,0]"
+                                                 style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div>	
+                                            <!-- LAYER NR. 2 -->
+                                            <div class="tp-caption Newspaper-Title   tp-resizeme" 
+                                                 id="slide-${i}00-layer-2" 
+                                                 data-x="['center','center','center','center']" 
+                                                 data-hoffset="['0','0','0','0']" 
+                                                 data-y="['top','top','top','top']" 
+                                                 data-voffset="['250','250','250','240']" 
+                                                 data-fontsize="['50','50','50','30']"
+                                                 data-lineheight="['55','55','55','35']"
+                                                 data-width="full"
+                                                 data-height="none"
+                                                 data-whitespace="normal"
+                                                 data-type="text" 
+                                                 data-responsive_offset="on" 
+                                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                                                 data-textAlign="['center','center','center','center']"
+                                                 data-paddingtop="[0,0,0,0]"
+                                                 data-paddingright="[0,0,0,0]"
+                                                 data-paddingbottom="[10,10,10,10]"
+                                                 data-paddingleft="[0,0,0,0]"
+                                                 style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
+                                                ${h.title}
+                                            </div>
 
-                                        <!-- LAYER NR. 1 -->
-                                        <div class="tp-caption tp-shape tp-shapewrapper " 
-                                             id="slide-${i}00-layer-1" 
-                                             data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-                                             data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
-                                             data-width="full"
-                                             data-height="full"
-                                             data-whitespace="nowrap"
-                                             data-type="shape" 
-                                             data-basealign="slide" 
-                                             data-responsive_offset="off" 
-                                             data-responsive="off"
-                                             data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1,"to":"opacity:0;","ease":"Power4.easeOut"}]'
-                                             data-textAlign="['left','left','left','left']"
-                                             data-paddingtop="[0,0,0,0]"
-                                             data-paddingright="[0,0,0,0]"
-                                             data-paddingbottom="[0,0,0,0]"
-                                             data-paddingleft="[0,0,0,0]"
-                                             style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div>	
-                                        <!-- LAYER NR. 2 -->
-                                        <div class="tp-caption Newspaper-Title   tp-resizeme" 
-                                             id="slide-${i}00-layer-2" 
-                                             data-x="['center','center','center','center']" 
-                                             data-hoffset="['0','0','0','0']" 
-                                             data-y="['top','top','top','top']" 
-                                             data-voffset="['250','250','250','240']" 
-                                             data-fontsize="['50','50','50','30']"
-                                             data-lineheight="['55','55','55','35']"
-                                             data-width="full"
-                                             data-height="none"
-                                             data-whitespace="normal"
-                                             data-type="text" 
-                                             data-responsive_offset="on" 
-                                             data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                             data-textAlign="['center','center','center','center']"
-                                             data-paddingtop="[0,0,0,0]"
-                                             data-paddingright="[0,0,0,0]"
-                                             data-paddingbottom="[10,10,10,10]"
-                                             data-paddingleft="[0,0,0,0]"
-                                             style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
-                                            ${h.title}
-                                        </div>
+                                            <!-- LAYER NR. 3 -->
+                                            <div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                                 id="slide-${i}00-layer-3" 
+                                                 data-x="['center','center','center','center']" 
+                                                 data-hoffset="['0','0','0','0']" 
+                                                 data-y="['top','top','top','top']" 
+                                                 data-voffset="['210','210','210','210']" 
+                                                 data-width="none"
+                                                 data-height="none"
+                                                 data-whitespace="nowrap"
+                                                 data-type="text" 
+                                                 data-responsive_offset="on"
+                                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                                                 data-textAlign="['left','left','left','left']"
+                                                 data-paddingtop="[0,0,0,0]"
+                                                 data-paddingright="[0,0,0,0]"
+                                                 data-paddingbottom="[0,0,0,0]"
+                                                 data-paddingleft="[0,0,0,0]"
+                                                 style="z-index: 7; white-space: nowrap; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
+                                                <!--									Batter Education For A Better -->
+                                            </div>
 
-                                        <!-- LAYER NR. 3 -->
-                                        <div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
-                                             id="slide-${i}00-layer-3" 
-                                             data-x="['center','center','center','center']" 
-                                             data-hoffset="['0','0','0','0']" 
-                                             data-y="['top','top','top','top']" 
-                                             data-voffset="['210','210','210','210']" 
-                                             data-width="none"
-                                             data-height="none"
-                                             data-whitespace="nowrap"
-                                             data-type="text" 
-                                             data-responsive_offset="on"
-                                             data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                             data-textAlign="['left','left','left','left']"
-                                             data-paddingtop="[0,0,0,0]"
-                                             data-paddingright="[0,0,0,0]"
-                                             data-paddingbottom="[0,0,0,0]"
-                                             data-paddingleft="[0,0,0,0]"
-                                             style="z-index: 7; white-space: nowrap; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
-                                            <!--									Batter Education For A Better -->
-                                        </div>
-
-                                        <!-- LAYER NR. 3 -->
-                                        <div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
-                                             id="slide-${i}00-layer-4" 
-                                             data-x="['center','center','center','center']" 
-                                             data-hoffset="['0','0','0','0']" 
-                                             data-y="['top','top','top','top']" 
-                                             data-voffset="['320','320','320','290']" 
-                                             data-width="['800','800','700','420']"
-                                             data-height="['100','100','100','120']"
-                                             data-whitespace="unset"
-                                             data-type="text" 
-                                             data-responsive_offset="on"
-                                             data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                             data-textAlign="['center','center','center','center']"
-                                             data-paddingtop="[0,0,0,0]"
-                                             data-paddingright="[0,0,0,0]"
-                                             data-paddingbottom="[0,0,0,0]"
-                                             data-paddingleft="[0,0,0,0]"
-                                             style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
-                                            ${h.description}
-                                        </div>
-                                        <!-- LAYER NR. 4 -->
-                                        <div class="tp-caption Newspaper-Button rev-btn " 
-                                             id="slide-${i}00-layer-5" 
-                                             data-x="['center','center','center','center']" 
-                                             data-hoffset="['90','80','75','90']" 
-                                             data-y="['top','top','top','top']" 
-                                             data-voffset="['400','400','400','420']" 
-                                             data-width="none"
-                                             data-height="none"
-                                             data-whitespace="nowrap"
-                                             data-type="button" 
-                                             data-responsive_offset="on" 
-                                             data-responsive="off"
-                                             data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
-                                             data-textAlign="['center','center','center','center']"
-                                             data-paddingtop="[12,12,12,12]"
-                                             data-paddingright="[30,35,35,15]"
-                                             data-paddingbottom="[12,12,12,12]"
-                                             data-paddingleft="[30,35,35,15]"
-                                             style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; background-color:var(--primary) !important; border:0; border-radius:30px; margin-right:5px;">READ MORE </div>
-                                        <div class="tp-caption Newspaper-Button rev-btn" 
-                                             id="slide-${i}00-layer-6" 
-                                             data-x="['center','center','center','center']" 
-                                             data-hoffset="['-90','-80','-75','-90']" 
-                                             data-y="['top','top','top','top']" 
-                                             data-voffset="['400','400','400','420']" 
-                                             data-width="none"
-                                             data-height="none"
-                                             data-whitespace="nowrap"
-                                             data-type="button" 
-                                             data-responsive_offset="on" 
-                                             data-responsive="off"
-                                             data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
-                                             data-textAlign="['center','center','center','center']"
-                                             data-paddingtop="[12,12,12,12]"
-                                             data-paddingright="[30,35,35,15]"
-                                             data-paddingbottom="[12,12,12,12]"
-                                             data-paddingleft="[30,35,35,15]"
-                                             style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; border-radius:30px;">CONTACT US</div>
+                                            <!-- LAYER NR. 3 -->
+                                            <div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                                 id="slide-${i}00-layer-4" 
+                                                 data-x="['center','center','center','center']" 
+                                                 data-hoffset="['0','0','0','0']" 
+                                                 data-y="['top','top','top','top']" 
+                                                 data-voffset="['320','320','320','290']" 
+                                                 data-width="['800','800','700','420']"
+                                                 data-height="['100','100','100','120']"
+                                                 data-whitespace="unset"
+                                                 data-type="text" 
+                                                 data-responsive_offset="on"
+                                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                                                 data-textAlign="['center','center','center','center']"
+                                                 data-paddingtop="[0,0,0,0]"
+                                                 data-paddingright="[0,0,0,0]"
+                                                 data-paddingbottom="[0,0,0,0]"
+                                                 data-paddingleft="[0,0,0,0]"
+                                                 style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
+                                                ${h.description}
+                                            </div>
+                                            <!-- LAYER NR. 4 -->
+                                            <div class="tp-caption Newspaper-Button rev-btn " 
+                                                 id="slide-${i}00-layer-5" 
+                                                 data-x="['center','center','center','center']" 
+                                                 data-hoffset="['90','80','75','90']" 
+                                                 data-y="['top','top','top','top']" 
+                                                 data-voffset="['400','400','400','420']" 
+                                                 data-width="none"
+                                                 data-height="none"
+                                                 data-whitespace="nowrap"
+                                                 data-type="button" 
+                                                 data-responsive_offset="on" 
+                                                 data-responsive="off"
+                                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
+                                                 data-textAlign="['center','center','center','center']"
+                                                 data-paddingtop="[12,12,12,12]"
+                                                 data-paddingright="[30,35,35,15]"
+                                                 data-paddingbottom="[12,12,12,12]"
+                                                 data-paddingleft="[30,35,35,15]"
+                                                 style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; background-color:var(--primary) !important; border:0; border-radius:30px; margin-right:5px;">READ MORE </div>
+                                            <div class="tp-caption Newspaper-Button rev-btn" 
+                                                 id="slide-${i}00-layer-6" 
+                                                 data-x="['center','center','center','center']" 
+                                                 data-hoffset="['-90','-80','-75','-90']" 
+                                                 data-y="['top','top','top','top']" 
+                                                 data-voffset="['400','400','400','420']" 
+                                                 data-width="none"
+                                                 data-height="none"
+                                                 data-whitespace="nowrap"
+                                                 data-type="button" 
+                                                 data-responsive_offset="on" 
+                                                 data-responsive="off"
+                                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
+                                                 data-textAlign="['center','center','center','center']"
+                                                 data-paddingtop="[12,12,12,12]"
+                                                 data-paddingright="[30,35,35,15]"
+                                                 data-paddingbottom="[12,12,12,12]"
+                                                 data-paddingleft="[30,35,35,15]"
+                                                 style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; border-radius:30px;">CONTACT US</div>
+                                        </a>
                                     </li>
 
                                 </c:forEach>
@@ -341,6 +352,43 @@
                     </div>
                     <!-- Our Services END -->
 
+                    <!-- My Courses -->
+
+                    <c:if test="${sessionScope.user ne null and requestScope.userRecentlyCourse.size()>0}">
+                        <div class="section-area section-sp2 popular-courses-bx">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 heading-bx left">
+                                        <h2 class="title-head">My <span>Courses</span></h2>
+                                        <p>Enjoy our course to have the best experience</p>
+                                        <c:if test="${sessionScope.user ne null and requestScope.userRecentlyCourse.size() eq 4}">
+                                            <a id="enroll-btn" href="enroll"><button class="btn">View more</button></a>
+                                        </c:if>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <c:forEach items="${requestScope.userRecentlyCourse}" var="c"> 
+                                        <div id="content" class="col-md-3 col-lg-3 col-sm-3 m-b30">
+                                            <div class="cours-bx" style="height:320px;">
+                                                <div class="action-box">
+                                                    <img style="width:300px;height: 200px;object-fit: cover;" src="${c.course.img}" alt="">
+                                                    <a href="coursecontent?courseId=${c.course.courseId}" class="btn">JOIN</a>
+                                                </div>
+                                                <div class="info-bx text-center" style="text-align:center;">
+                                                    <h5><a href="coursecontent?courseId=${c.course.courseId}">${c.course.name}</a></h5>
+                                                    <span>${c.course.category.name}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <!-- My Courses END -->
+
                     <!-- Popular Courses -->
                     <div class="section-area section-sp2 popular-courses-bx">
                         <div class="container">
@@ -359,18 +407,17 @@
                                                     <img src="${c.img}" alt=""/>
                                                     <a href="coursedetail?id=${c.courseId}" class="btn">Read More</a>
                                                 </div>
-                                                <div class="info-bx text-center" class="course-content">
-                                                    <h5><a href="coursedetail?id=${c.courseId}">${c.name}</a></h5>
-                                                    <span>${c.category.name}</span>
+                                                <div class="info-bx text-center">
+                                                    <div class="course-content">
+                                                        <h5><a href="coursedetail?id=${c.courseId}">${c.name}</a></h5>
+                                                        <span>${c.category.name}</span>
+                                                    </div>
+
                                                 </div>
                                                 <div class="cours-more-info">
                                                     <div class="review">
                                                         <span>${c.level.name}</span>
                                                         <ul class="cours-star">
-                                                            <!--                                                                                    <li class="active"><i class="fa fa-star"></i></li>
-                                                                                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                                                                                <li><i class="fa fa-star"></i></li>                                                                                                                                   <li><i class="fa fa-star"></i></li>-->
                                                         </ul>
                                                     </div>
                                                     <div class="price">
@@ -402,13 +449,13 @@
                                 <c:forEach items="${requestScope.blogList}" var="b">
                                     <div class="item">
                                         <div class="recent-news">
-                                            
-                                                
-                                            
+
+
+
                                             <div class="action-box">
                                                 <a href="blogdetail?id=${b.blogId}"><img src="${b.img}" alt=""/></a>
                                             </div>
-<!--                                            <div class="info-bx" style="height:400px; position: relative; border-bottom: none;">-->
+                                            <!--                                            <div class="info-bx" style="height:400px; position: relative; border-bottom: none;">-->
                                             <div class="info-bx">    
                                                 <ul class="media-post">
                                                     <li><i class="fa fa-calendar"></i>${b.createdTime}</li>
@@ -419,11 +466,11 @@
                                                     <p style="height: 50%; border-bottom: none;">${b.quickReview}</p>
                                                 </div>
                                                 <div class="post-extra">
-                                                        <a class="btn-link">${b.category.name}</a>
-                                                        <a href="#" class="comments-bx"><i class="fa fa-user"></i>By ${b.author.name}</a>
+                                                    <a class="btn-link">${b.category.name}</a>
+                                                    <a href="#" class="comments-bx"><i class="fa fa-user"></i>By ${b.author.name}</a>
                                                 </div>
-                                                
-                                                
+
+
                                             </div>  
                                         </div>
                                     </div>
@@ -432,8 +479,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
                     <!-- Recent News End -->
 
                 </div>
@@ -451,8 +498,8 @@
                 loader.classList.add("loader-hidden");
                 loader.addEventListener("transitioned", () => {
                     document.body.removeChild("loader");
-                })
-            })
+                });
+            });
         </script>
         <script>
             // S? d?ng JavaScript ?? thi?t l?p chi?u cao l?n nh?t
@@ -486,7 +533,7 @@
                 });
             };
         </script>
-        
+
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
@@ -520,7 +567,7 @@
             jQuery(document).ready(function () {
                 var ttrevapi;
                 var tpj = jQuery;
-                if (tpj("#rev_slider_486_1").revolution == undefined) {
+                if (tpj("#rev_slider_486_1").revolution === undefined) {
                     revslider_showDoubleJqueryError("#rev_slider_486_1");
                 } else {
                     ttrevapi = tpj("#rev_slider_486_1").show().revolution({

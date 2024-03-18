@@ -9,8 +9,27 @@ package com.fpt.swp391_onlinelearning.model;
  * @author tran Hoang Phuc
  */
 public class BlogCategory {
+
     private int blogCategoryId;
     private String name;
+    private boolean isActivated;
+    private SettingType type;
+
+    public SettingType getType() {
+        return type;
+    }
+
+    public void setType(SettingType type) {
+        this.type = type;
+    }
+
+    public boolean isIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
 
     public int getBlogCategoryId() {
         return blogCategoryId;
@@ -27,6 +46,5 @@ public class BlogCategory {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
 }

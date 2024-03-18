@@ -18,7 +18,15 @@ public class Blog {
     private Date createdTime;
     private User author;
     private String img;
+    private boolean isActivated;
 
+    public boolean isIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
     public String getImg() {
         return img;
     }

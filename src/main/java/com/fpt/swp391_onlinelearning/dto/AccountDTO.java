@@ -18,7 +18,17 @@ public class AccountDTO {
     private Date createdTime;
     private RoleDTO role;
     private String otp;
+    private java.sql.Date registeredTime;
 
+    public java.sql.Date getRegisteredTime() {
+        return registeredTime;
+    }
+
+    public void setRegisteredTime(java.sql.Date registeredTime) {
+        this.registeredTime = registeredTime;
+    }
+    
+    
     public String getOtp() {
         return otp;
     }

@@ -4,7 +4,7 @@
  */
 package com.fpt.swp391_onlinelearning.dal;
 
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IBLogCategoryDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IBLogCategoryDAO;
 import com.fpt.swp391_onlinelearning.model.BlogCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +25,7 @@ public class BlogCategoryDAO implements IBLogCategoryDAO {
     public List<BlogCategory> getAllBlogCategory() {
         Connection connection = DBContext.getConnection();
         List<BlogCategory> blogCategorys = new ArrayList<>();
-        String sql = "SELECT  blogCategoryId, name FROM blogcategory";
+        String sql = "SELECT  blogCategoryId, name FROM blogcategory where isActivated = true";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();

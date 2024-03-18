@@ -36,4 +36,11 @@ public interface IAccountService {
     public AccountDTO getAccount(int id, String pass);
     
     public void updatePassword(AccountDTO adto, String newPassword);
+    
+        
+    public void updateAccountById(AccountDTO a, int id) ;
+    
+    public boolean insertByAdmin(AccountDTO acc);
+    
+    public boolean sendPasswordtoEmail(String email,String pass);
 }

@@ -6,7 +6,7 @@ package com.fpt.swp391_onlinelearning.service;
 
 import com.fpt.swp391_onlinelearning.convert.Converter;
 import com.fpt.swp391_onlinelearning.dal.FeatureDAO;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IFeatureDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IFeatureDAO;
 import com.fpt.swp391_onlinelearning.dto.AccountDTO;
 import com.fpt.swp391_onlinelearning.dto.FeatureDTO;
 import com.fpt.swp391_onlinelearning.dto.RoleDTO;
@@ -45,13 +45,5 @@ public class FeatureService implements IFeatureService{
         return featureDTOs;
     }
     
-    public static void main(String[] args) {
-        AccountDTO a = new AccountDTO();
-        RoleDTO r = new RoleDTO();
-        r.setRoleId(1);
-        a.setRole(r);
-        FeatureService fs = FeatureService.getInstance(new FeatureDAO());
-        System.out.println(fs.getFeatureByRole(a, "/pay").size());
-    }
     
 }

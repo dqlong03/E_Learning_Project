@@ -11,7 +11,24 @@ package com.fpt.swp391_onlinelearning.model;
 public class Duration {
     private int durationId;
     private String name;
+    private boolean isActivated;
+     private SettingType type;
 
+    public SettingType getType() {
+        return type;
+    }
+
+    public void setType(SettingType type) {
+        this.type = type;
+    }
+
+    public boolean isIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
     public int getDurationId() {
         return durationId;
     }

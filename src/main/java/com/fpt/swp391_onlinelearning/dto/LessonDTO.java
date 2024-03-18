@@ -14,6 +14,16 @@ public class LessonDTO {
     private ChapterDTO chapter;
     private LessonTypeDTO type;
     private int duration;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
 
     public int getLessonId() {
         return lessonId;

@@ -33,7 +33,6 @@ public class EditProfileController extends BaseRequiredVerifyController {
 
     public void init() throws ServletException {
         iUserService = UserService.getInstace(new UserDAO(), new UserDAO());
-        super.init();
     }
 
     @Override

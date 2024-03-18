@@ -6,12 +6,21 @@ package com.fpt.swp391_onlinelearning.controller;
 
 import com.fpt.swp391_onlinelearning.dal.BlogCategoryDAO;
 import com.fpt.swp391_onlinelearning.dal.BlogDAO;
+import com.fpt.swp391_onlinelearning.dal.BlogViewDAO;
+import com.fpt.swp391_onlinelearning.dal.CourseDAO;
 import com.fpt.swp391_onlinelearning.dto.BlogCategoryDTO;
 import com.fpt.swp391_onlinelearning.dto.BlogDTO;
+import com.fpt.swp391_onlinelearning.dto.BlogViewDTO;
+import com.fpt.swp391_onlinelearning.dto.CourseDTO;
+import com.fpt.swp391_onlinelearning.dto.UserDTO;
 import com.fpt.swp391_onlinelearning.service.BlogCategoryService;
 import com.fpt.swp391_onlinelearning.service.BlogService;
+import com.fpt.swp391_onlinelearning.service.BlogViewService;
+import com.fpt.swp391_onlinelearning.service.CourseService;
 import com.fpt.swp391_onlinelearning.service.iservice.IBlogCategoryService;
 import com.fpt.swp391_onlinelearning.service.iservice.IBlogService;
+import com.fpt.swp391_onlinelearning.service.iservice.IBlogViewService;
+import com.fpt.swp391_onlinelearning.service.iservice.ICourseService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,10 +36,15 @@ public class BlogDetailController extends HttpServlet {
 
     private IBlogService iBlogService;
     private IBlogCategoryService blogCategoryService;
+    private IBlogViewService _IBlogViewService;
+    private ICourseService iCourseService;
 
     public void init() throws ServletException {
         iBlogService = BlogService.getInstance(new BlogDAO());
         blogCategoryService = BlogCategoryService.getInstance(new BlogCategoryDAO());
+        _IBlogViewService = BlogViewService.getInstance(new BlogViewDAO());
+        iCourseService = CourseService.getInstance(new CourseDAO(), new CourseDAO());
+
     }
 
     @Override
@@ -38,13 +52,33 @@ public class BlogDetailController extends HttpServlet {
         String blogIdString = req.getParameter("id");
         int blogId = Integer.parseInt(blogIdString);
         BlogDTO bdto = (BlogDTO) iBlogService.getBlogDetail(blogId);
-        List<BlogDTO> bdtos = iBlogService.getRecentBlog();
-        List<BlogCategoryDTO> bcdtos = blogCategoryService.getAllBlogCategory();
-        req.setAttribute("bdto", bdto);
-        req.setAttribute("bdtos", bdtos);
-        req.setAttribute("bcdtos", bcdtos);
-        req.getRequestDispatcher("view/blogdetail.jsp").forward(req, resp);
+        if (bdto != null) {
 
+            List<BlogDTO> bdtos = iBlogService.getRecentBlog();
+            List<BlogCategoryDTO> bcdtos = blogCategoryService.getAllBlogCategory();
+            BlogViewDTO bvdto = new BlogViewDTO();
+            BlogDTO b = new BlogDTO();
+            b.setBlogId(blogId);
+            bvdto.setBlog(b);
+            if (req.getSession().getAttribute("user") != null) {
+                UserDTO udto = (UserDTO) req.getSession().getAttribute("user");
+                bvdto.setUser(udto);
+                List<CourseDTO> dtos = iCourseService.getTempCourseEnrollmemt(udto.getUserId());
+                if (!dtos.isEmpty()) {
+                    req.getSession().setAttribute("dtos", dtos);
+                } else {
+                    req.getSession().setAttribute("dtos", null);
+                }
+            }
+            _IBlogViewService.addNewBlogView(bvdto);
+
+            req.setAttribute("bdto", bdto);
+            req.setAttribute("bdtos", bdtos);
+            req.setAttribute("bcdtos", bcdtos);
+            req.getRequestDispatcher("view/blogdetail.jsp").forward(req, resp);
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/bloglist");
+        }
     }
 
 }

@@ -5,7 +5,7 @@
 package com.fpt.swp391_onlinelearning.service;
 
 import com.fpt.swp391_onlinelearning.convert.Converter;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IBLogCategoryDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IBLogCategoryDAO;
 import com.fpt.swp391_onlinelearning.dto.BlogCategoryDTO;
 import com.fpt.swp391_onlinelearning.model.BlogCategory;
 import com.fpt.swp391_onlinelearning.service.iservice.IBlogCategoryService;

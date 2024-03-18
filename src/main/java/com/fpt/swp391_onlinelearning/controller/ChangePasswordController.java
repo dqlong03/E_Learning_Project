@@ -6,20 +6,17 @@ package com.fpt.swp391_onlinelearning.controller;
 
 import com.fpt.swp391_onlinelearning.baseController.BaseRequiredVerifyController;
 import com.fpt.swp391_onlinelearning.dal.AccountDAO;
-import com.fpt.swp391_onlinelearning.service.AccountService;
-import com.fpt.swp391_onlinelearning.service.iservice.IAccountService;
-import java.io.IOException;
-import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import com.fpt.swp391_onlinelearning.dal.UserDAO;
 import com.fpt.swp391_onlinelearning.dto.AccountDTO;
 import com.fpt.swp391_onlinelearning.dto.UserDTO;
+import com.fpt.swp391_onlinelearning.service.AccountService;
 import com.fpt.swp391_onlinelearning.service.UserService;
+import com.fpt.swp391_onlinelearning.service.iservice.IAccountService;
 import com.fpt.swp391_onlinelearning.service.iservice.IUserService;
-import com.fpt.swp391_onlinelearning.util.URLUtils;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 /**
  *
  * @author phuc2

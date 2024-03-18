@@ -15,18 +15,22 @@ import java.io.IOException;
  *
  * @author Admin
  */
-public class LogoutController extends BaseRequiredVerifyController{
+public class LogoutController extends BaseRequiredVerifyController {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response, AccountDTO user, boolean isActivated) throws ServletException, IOException {
-    request.getSession().invalidate();
-    response.sendRedirect(request.getContextPath()+"/home");
+        request.getSession().setAttribute("session", null);
+        request.getSession().setAttribute("user", null);
+        request.getSession().invalidate();
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response, AccountDTO user, boolean isActivated) throws ServletException, IOException {
-request.getSession().invalidate();
-    response.sendRedirect(request.getContextPath()+"/home");  
+        request.getSession().setAttribute("session", null);
+        request.getSession().setAttribute("user", null);
+        request.getSession().invalidate();
+        response.sendRedirect(request.getContextPath() + "/home");
     }
-    
+
 }

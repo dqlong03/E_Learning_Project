@@ -11,7 +11,23 @@ package com.fpt.swp391_onlinelearning.model;
 public class Language {
     private int languageId;
     private String name;
+    private boolean isActivated;
+    private SettingType type;
 
+    public SettingType getType() {
+        return type;
+    }
+
+    public void setType(SettingType type) {
+        this.type = type;
+    }
+    public boolean isIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
     public int getLanguageId() {
         return languageId;
     }

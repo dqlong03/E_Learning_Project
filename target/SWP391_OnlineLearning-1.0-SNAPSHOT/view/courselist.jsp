@@ -166,44 +166,47 @@
                                     <div class="row">
                                         <!-- Show course -->
                                         <c:if test="${requestScope.course ne null and requestScope.course.size() > 0}">
-                                        <c:forEach items="${requestScope.course}" var="c">
-                                            <div id="content" class="col-md-6 col-lg-4 col-sm-6 m-b30">
-                                                <div class="cours-bx">
-                                                    <div class="action-box">
-                                                        <img src="${c.img}" alt="">
-                                                        <a href="coursedetail?id=${c.courseId}" class="btn">Read More</a>
-                                                    </div>
-                                                    <div class="info-bx text-center">
-                                                        <h5><a href="coursedetail?id=${c.courseId}">${c.name}</a></h5>
-                                                        <span>${c.getCategory().getName()}</span>
-                                                    </div>
-                                                    <div class="cours-more-info">
-                                                        <div class="review">
-                                                            <span>LEVEL</span>
-                                                            <h5>${c.getLevel().getName()}</h5>
+                                            <c:forEach items="${requestScope.course}" var="c">
+                                                <div id="content" class="col-md-6 col-lg-4 col-sm-6 m-b30">
+                                                    <div class="cours-bx">
+                                                        <div class="action-box">
+                                                            <img src="${c.img}" alt="">
+                                                            <a href="coursedetail?id=${c.courseId}" class="btn">Read More</a>
                                                         </div>
-                                                        <div class="review">
-                                                            <span>Price</span>
-                                                            <h5><fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${c.price}"/> d</h5>
+                                                        <div class="info-bx text-center">
+                                                            <div class="course-content">
+                                                                <h5><a href="coursedetail?id=${c.courseId}">${c.name}</a></h5>
+                                                                <span>${c.getCategory().getName()}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="cours-more-info">
+                                                            <div class="review">
+                                                                <span>LEVEL</span>
+                                                                <h5>${c.getLevel().getName()}</h5>
+                                                            </div>
+                                                            <div class="review">
+                                                                <span>Price</span>
+                                                                <h5><fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${c.price}"/> d</h5>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </c:forEach>
+                                            <!-- Paging -->
+                                            <div class="col-lg-12 m-b20">
+                                                <div class="pagination-bx rounded-sm gray clearfix">
+                                                    <ul class="pagination">
+                                                        <div id="pagee"></div>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </c:forEach>
-                                        <!-- Paging -->
-                                        <div class="col-lg-12 m-b20">
-                                            <div class="pagination-bx rounded-sm gray clearfix">
-                                                <ul class="pagination">
-                                                    <div id="pagee"></div>
-                                                </ul>
-                                            </div>
-                                        </div>
                                         </c:if>
                                         <c:if test="${requestScope.course eq null or requestScope.course.size() <=0 }">
-                                             <div class="img_not_found">
-                                                    <img src="assets/images/404.2 (1).png" alt=""/>
-                                                </div>
-                                                <h3 class="not_found">No course found matching this keyword!</h3>
+                                            <div class="img_not_found">
+                                                <img src="assets/images/404.2 (1).png" alt=""/>
+                                            </div>
+                                            <h3 class="not_found">No course found matching this keyword!</h3>
                                         </c:if>
                                     </div>
                                 </div>
@@ -220,6 +223,37 @@
             <!-- Footer END ==== -->
             <button class="back-to-top fa fa-chevron-up" ></button>
         </div>
+        <script>
+            window.onload = function () {
+                var items = document.querySelectorAll('.blog-content');
+                var maxHeight = 0;
+
+                items.forEach(function (item) {
+                    var itemHeight = item.clientHeight;
+                    if (itemHeight > maxHeight) {
+                        maxHeight = itemHeight;
+                    }
+                });
+
+                // Áp d?ng chi?u cao l?n nh?t cho t?t c? các item
+                items.forEach(function (item) {
+                    item.style.height = maxHeight + 'px';
+                });
+                var courses = document.querySelectorAll('.course-content');
+                var maxHeightCourses = 0;
+
+                courses.forEach(function (course) {
+                    var courseHeight = course.clientHeight;
+                    if (courseHeight > maxHeightCourses) {
+                        maxHeightCourses = courseHeight;
+                    }
+                });
+
+                courses.forEach(function (course) {
+                    course.style.height = maxHeightCourses + 'px';
+                });
+            };
+        </script>
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/vendors/bootstrap/js/popper.min.js"></script>

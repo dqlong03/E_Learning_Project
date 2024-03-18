@@ -6,12 +6,17 @@ package com.fpt.swp391_onlinelearning.controller;
 
 import com.fpt.swp391_onlinelearning.dal.BlogCategoryDAO;
 import com.fpt.swp391_onlinelearning.dal.BlogDAO;
+import com.fpt.swp391_onlinelearning.dal.CourseDAO;
 import com.fpt.swp391_onlinelearning.dto.BlogCategoryDTO;
 import com.fpt.swp391_onlinelearning.dto.BlogDTO;
+import com.fpt.swp391_onlinelearning.dto.CourseDTO;
+import com.fpt.swp391_onlinelearning.dto.UserDTO;
 import com.fpt.swp391_onlinelearning.service.BlogCategoryService;
 import com.fpt.swp391_onlinelearning.service.BlogService;
+import com.fpt.swp391_onlinelearning.service.CourseService;
 import com.fpt.swp391_onlinelearning.service.iservice.IBlogCategoryService;
 import com.fpt.swp391_onlinelearning.service.iservice.IBlogService;
+import com.fpt.swp391_onlinelearning.service.iservice.ICourseService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,10 +32,13 @@ public class BlogListController extends HttpServlet {
 
     private IBlogService iBlogService;
     private IBlogCategoryService blogCategoryService;
+    private ICourseService iCourseService;
 
     public void init() throws ServletException {
         iBlogService = BlogService.getInstance(new BlogDAO());
         blogCategoryService = BlogCategoryService.getInstance(new BlogCategoryDAO());
+        iCourseService = CourseService.getInstance(new CourseDAO(), new CourseDAO());
+
     }
 
     @Override
@@ -58,6 +66,15 @@ public class BlogListController extends HttpServlet {
             title = "";
         }
 
+        if (req.getSession().getAttribute("user") != null) {
+            UserDTO udto = (UserDTO) req.getSession().getAttribute("user");
+            List<CourseDTO> dtos = iCourseService.getTempCourseEnrollmemt(udto.getUserId());
+            if (!dtos.isEmpty()) {
+                req.getSession().setAttribute("dtos", dtos);
+            } else {
+                req.getSession().setAttribute("dtos", null);
+            }
+        }
         List<BlogDTO> blogDTOs = iBlogService.searchBlog(title, categoryId, pageIndex, orderTime);
         List<BlogDTO> bdtos = iBlogService.getRecentBlog();
         List<BlogCategoryDTO> bcdtos = blogCategoryService.getAllBlogCategory();

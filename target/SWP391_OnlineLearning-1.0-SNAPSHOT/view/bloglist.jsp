@@ -188,7 +188,7 @@
                                             </div>
                                         </div>
                                         <div class="widget recent-posts-entry">
-                                            <h6 class="widget-title">Recent Posts</h6>
+                                            <h6 class="widget-title">Recent Blogs</h6>
                                             <div class="widget-post-bx">
                                                 <c:forEach  items="${requestScope.bdtos}" var="rcb">
                                                     <div class="widget-post clearfix">

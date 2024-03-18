@@ -18,9 +18,17 @@ public class Account {
     private Date createdTime;
     private Role role;
     private String otp;
-
+    private java.sql.Date registeredTime;
     public String getOtp() {
         return otp;
+    }
+
+    public java.sql.Date getRegisteredTime() {
+        return registeredTime;
+    }
+
+    public void setRegisteredTime(java.sql.Date registeredTime) {
+        this.registeredTime = registeredTime;
     }
 
     public void setOtp(String otp) {

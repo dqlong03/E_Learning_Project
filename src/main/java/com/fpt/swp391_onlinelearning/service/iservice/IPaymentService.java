@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -18,9 +19,11 @@ import java.util.Date;
  */
 public interface IPaymentService {
 
-    public String payForCourse(HttpServletRequest req, long price, AccountDTO dtos, CourseDTO course) throws ServletException, IOException;
+    public String payForCourse(HttpServletRequest req, long price, AccountDTO dtos, int total) throws ServletException, IOException;
 
-    public void paymentReturn(String transactionId, long amount, Date createdTime, boolean status, UserDTO user);
+    public void paymentReturn(String transactionId, long amount, Date createdTime, boolean status, UserDTO user, int accId);
 
-    public void pay(long amount, CourseDTO course, UserDTO userDto);
+    public void pay(long amount, List<CourseDTO> course, UserDTO userDto);
+    
+    
 }

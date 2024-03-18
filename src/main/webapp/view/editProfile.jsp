@@ -72,7 +72,7 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <li><a href="#">Home</a></li>
+                            <li><a href="home">Home</a></li>
                             <li>Profile</li>
                         </ul>
                     </div>
@@ -99,20 +99,17 @@
                                         <div class="profile-tabnav">
                                             <ul class="nav nav-tabs">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" data-toggle="tab" href="EditProfile"><i class="ti-pencil-alt"></i>Edit Profile</a>
+                                                    <a class="nav-link active" data-toggle="tab" href="editProfile"><i class="ti-pencil-alt"></i>Edit Profile</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#courses"><i class="ti-book"></i>Courses</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#quiz-results"><i class="ti-bookmark-alt"></i>Quiz Results </a>
+                                                    <a class="nav-link" href="enroll"><i class="ti-book"></i>Courses</a>
                                                 </li>
 
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="changepassword"><i class="ti-lock"></i>Change Password</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#transaction-history"><i class="ti-money"></i>Transaction history</a>
+                                                    <a class="nav-link" href="transaction"><i class="ti-money"></i>Transaction history</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -229,264 +226,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <div class="courses-filter">
-                                                    <div class="clearfix">
-                                                        <ul id="masonry" class="ttr-gallery-listing magnific-image row">
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 publish">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic1.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 pending">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic2.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 publish">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic3.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 pending">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic4.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 publish">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic5.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 pending">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic6.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 publish">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic7.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 book">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic8.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 publish">
-                                                                <div class="cours-bx">
-                                                                    <div class="action-box">
-                                                                        <img src="assets/images/courses/pic9.jpg" alt="">
-                                                                        <a href="#" class="btn">Read More</a>
-                                                                    </div>
-                                                                    <div class="info-bx text-center">
-                                                                        <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                                        <span>Programming</span>
-                                                                    </div>
-                                                                    <div class="cours-more-info">
-                                                                        <div class="review">
-                                                                            <span>3 Review</span>
-                                                                            <ul class="cours-star">
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="price">
-                                                                            <del>$190</del>
-                                                                            <h5>$120</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                             <div class="tab-pane" id="quiz-results">
                                                 <div class="profile-head">

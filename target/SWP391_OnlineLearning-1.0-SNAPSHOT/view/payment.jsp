@@ -224,7 +224,7 @@
                         <b style="position: absolute; left: 0; font-size: 20px;">Total</b>
                         <b style="position: absolute; right: 0; font-size: 20px;">đ
                             
-                            <fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${requestScope.course.price - requestScope.user.balance <0?0:requestScope.course.price - requestScope.user.balance}" />  </b> <br>
+                            <fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${requestScope.course.price - requestScope.user.balance <0?requestScope.user.balance - requestScope.course.price:requestScope.course.price - requestScope.user.balance}" />  </b> <br>
                     </div>
                     <form action="pay" id="frmCreateOrder" method="post">   
                         <input type="hidden" name="courseId" value="${requestScope.course.courseId}">
@@ -232,7 +232,7 @@
                             <input type="hidden" name="amount" value="${requestScope.course.price - requestScope.user.balance}">
                         </c:if>
                         <c:if test="${requestScope.course.price <= requestScope.user.balance}">
-                            <input type="hidden" name="amount" value="0">
+                            <input type="hidden" name="amount" value="${requestScope.user.balance - requestScope.course.price}">
                         </c:if>
                       
                         <input type="hidden" name="bankCode" value="">

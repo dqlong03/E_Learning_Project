@@ -4,9 +4,8 @@
  */
 package com.fpt.swp391_onlinelearning.dal;
 
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IDAO;
-import com.fpt.swp391_onlinelearning.dal.idbcontex.IFeatureDAO;
-import com.fpt.swp391_onlinelearning.dto.AccountDTO;
+import com.fpt.swp391_onlinelearning.dal.idal.IDAO;
+import com.fpt.swp391_onlinelearning.dal.idal.IFeatureDAO;
 import com.fpt.swp391_onlinelearning.model.Account;
 import com.fpt.swp391_onlinelearning.model.Feature;
 import com.fpt.swp391_onlinelearning.model.Role;
@@ -78,13 +77,4 @@ public class FeatureDAO extends DBContext implements IDAO<Feature>, IFeatureDAO 
         }
         return features;
     }
-
-    public static void main(String[] args) {
-        Account a = new Account();
-        Role r = new Role();
-        r.setRoleId(1);
-        a.setRole(r);
-        System.out.println(new FeatureDAO().getFeatureByRole(a, "/pay").size());
-    }
-
 }
