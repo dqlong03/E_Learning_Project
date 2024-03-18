@@ -1,0 +1,23 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+package com.fpt.swp391_onlinelearning.dal.idbcontex;
+
+import com.fpt.swp391_onlinelearning.model.Course;
+import java.util.List;
+
+/**
+ *
+ * @author tran Hoang Phuc
+ */
+public interface ICourseDAO {
+
+    public List<Course> getRecentlyCourse(int numberOfCourses);
+
+    public int getCount(int ccid, String name, int levelid, int durationid, int languageid);
+
+    public List<Course> getAllCourse(int pageindex, int pagesize, int sort, int ccid, String name, int levelid, int durationid, int languageid);
+
+    public Course getCourseDetail(int courseId);
+}
